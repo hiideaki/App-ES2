@@ -1,3 +1,41 @@
 page-home {
+    .superior {
+        background: #08007F;
+        color: #fff;
+        height: 50%;
+    }
+
+    .superior button {
+        position: fixed;
+        left: 5px;
+        top: 5px;
+        background: transparent;
+        color: #fff;
+        font-size: 25px;
+    }
+
+    .data {
+        position: absolute;
+        width: 40vw;
+        min-height: 10%;
+        margin-left: 50%;
+        margin-top: 70px;
+        transform: translateX(-50%);
+    }
+
+    .data p {
+        padding: 0;
+        margin: 5px 0;
+        line-height: 90%;
+    }
+
+    .compromisso:first-child {
+        border-top: 1px solid #08007F;
+    }
+    
+    .compromisso {
+        border-bottom: 1px solid #08007F;
+    }
 
 }
+

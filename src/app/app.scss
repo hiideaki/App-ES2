@@ -14,3 +14,72 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+* {
+    font-family: Roboto;
+}
+
+ion-header * {
+    background: #08007F !important;
+    color: #fff !important;
+    text-align: center;
+    font-size: 20px !important;
+}
+
+.profile-picture {
+    border-radius: 50%;
+    margin: 50px 0;
+    margin-left: 50%;
+    transform: translateX(-50%);
+}
+
+.formulario {
+    
+    * {
+        font-family: Roboto;
+        color: #08007F;
+    }
+
+    div {
+        margin: 20px 0;
+    }
+
+
+    label {
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    input {
+        border: none;
+        width: 80%;
+        border-bottom: 1px solid #08007F;
+        color: #333;
+        margin: 3px 0;
+    }
+    
+    button {
+        font-size: 20px;
+        font-weight: bold;
+        padding: 10px;
+        margin: 5px;
+        border-radius: 50px;
+        border: 3px solid #08007F;
+        background: #fff;
+        width: 70%;
+    }
+
+    #facebook {
+        font-size: 14px !important;
+        font-weight: lighter;
+        background: #08007F;
+        color: #fff;
+    }
+
+    #facebook svg {
+        width: 20px;
+        vertical-align: middle;
+        transform: translate(-5px, -1px);
+    }
+
+}
