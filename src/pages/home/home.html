@@ -6,7 +6,7 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <div class="data">
-      <p class="dia" fittext>
+      <p class="dia">
         {{ dia }}
       </p>
       <p class="mes" fittext>
@@ -20,21 +20,8 @@
 
   <div class="inferior" padding>
     Compromissos de hoje
-    <div class="compromissos">
-      <div class="compromisso" *ngFor="let item of lista">
-        <div class="hora">
-          <p>{{ item.horaIni }}</p>
-          <p>{{ item.horaFim }}</p>
-        </div>
-        <div class="materia">
-          <p>{{ item.materia }}</p>
-          <p>{{ item.professor }}</p>
-        </div>
-        <div class="frequencia">
-          <p>{{ item.frequencia }}</p>
-        </div>
-      </div>
-    </div>
 
+    <compromisso *ngFor="let item of lista" [item]="item"></compromisso>
+    
   </div>
 </ion-content>

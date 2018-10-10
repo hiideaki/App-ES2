@@ -26,6 +26,11 @@ ion-header * {
     font-size: 20px !important;
 }
 
+ion-menu * {
+    background: #08007F !important;
+    color: #fff !important;
+}
+
 .profile-picture {
     border-radius: 50%;
     margin: 50px 0;
@@ -33,15 +38,33 @@ ion-header * {
     transform: translateX(-50%);
 }
 
+.options-menu {
+    margin-left: 50%;
+    transform: translateX(-50%);
+    position: absolute;
+    bottom: 0;
+    svg {
+        fill: #fff;
+        width: 40px;
+    }
+}
+
 .formulario {
+    text-align: center;
+    position: relative;
     
     * {
         font-family: Roboto;
         color: #08007F;
     }
 
-    div {
+    .form-field {
         margin: 20px 0;
+
+        input {
+            margin: 20px 0;
+        }
+        
     }
 
 
@@ -52,10 +75,16 @@ ion-header * {
 
     input {
         border: none;
+        font-size: 22px;
         width: 80%;
         border-bottom: 1px solid #08007F;
         color: #333;
         margin: 3px 0;
+        outline: none;
+    }
+    
+    .button-group {
+        margin-top: 30%;
     }
     
     button {

@@ -16,11 +16,14 @@ page-home {
 
     .data {
         position: absolute;
-        width: 40vw;
         min-height: 10%;
         margin-left: 50%;
         margin-top: 70px;
         transform: translateX(-50%);
+    }
+
+    .dia {
+        font-size: 142px;
     }
 
     .data p {

@@ -44,7 +44,7 @@ export class MyApp {
   }
 
   logout() {
-    this.nav.pop();
+    this.nav.setRoot(LoginPage);
   }
 
 }

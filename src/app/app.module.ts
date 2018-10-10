@@ -12,17 +12,20 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { AngularFittextModule } from 'angular-fittext';
 
+import { CompromissoComponent } from '../components/compromisso/compromisso';
+
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     ListPage,
     LoginPage,
+    CompromissoComponent,
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    AngularFittextModule
+    AngularFittextModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [
