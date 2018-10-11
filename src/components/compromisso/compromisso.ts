@@ -1,4 +1,6 @@
 import { Component, Input } from '@angular/core';
+import { NavController } from 'ionic-angular';
+import { AulaPage } from '../../pages/aula/aula';
 
 /**
  * Generated class for the CompromissoComponent component.
@@ -14,9 +16,11 @@ export class CompromissoComponent {
 
   @Input() item: any;
 
-  constructor() {
-    console.log('Dentro de compromisso.ts: ' + this.item);
-    
+  constructor(public navCtrl: NavController) {
+  }
+
+  retornaAlvo(ev) {
+    this.navCtrl.push(AulaPage, this.item);
   }
 
 }

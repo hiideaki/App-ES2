@@ -5,7 +5,6 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
-import { LoginPage } from '../pages/login/login';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -14,13 +13,21 @@ import { AngularFittextModule } from 'angular-fittext';
 
 import { CompromissoComponent } from '../components/compromisso/compromisso';
 
+import { LoginPage } from '../pages/login/login';
+import { CadastrarPage } from '../pages/cadastrar/cadastrar';
+import { RecuperarSenhaPage } from '../pages/recuperar-senha/recuperar-senha';
+import { AulaPage } from '../pages/aula/aula';
+
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     ListPage,
     LoginPage,
+    CadastrarPage,
     CompromissoComponent,
+    RecuperarSenhaPage,
+    AulaPage,
   ],
   imports: [
     BrowserModule,
@@ -33,6 +40,9 @@ import { CompromissoComponent } from '../components/compromisso/compromisso';
     HomePage,
     ListPage,
     LoginPage,
+    CadastrarPage,
+    RecuperarSenhaPage,
+    AulaPage,
   ],
   providers: [
     StatusBar,

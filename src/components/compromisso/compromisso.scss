@@ -1,3 +1,25 @@
 compromisso {
+    .compromisso {
+        width: 100%;
+        position: relative;
+        display: flex;
+        border-bottom: 1px solid #000;
+    
+        .hora {
+            width: 15%;
+        }
 
+        .materia {
+            width: 70%;
+        }
+
+        .frequencia {
+            width: 15%;
+        
+        }
+
+
+    
+    }
+    
 }

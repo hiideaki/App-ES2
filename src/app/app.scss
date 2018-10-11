@@ -49,9 +49,23 @@ ion-menu * {
     }
 }
 
+.botao {
+    font-family: Roboto;
+    color: #08007F;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 50px;
+    border: 3px solid #08007F;
+    background: #fff;
+    width: 70%;
+}
+
 .formulario {
-    text-align: center;
-    position: relative;
+    width: 70%;
+    margin-left: 50%;
+    transform: translateX(-50%);
     
     * {
         font-family: Roboto;
@@ -61,54 +75,46 @@ ion-menu * {
     .form-field {
         margin: 20px 0;
 
-        input {
-            margin: 20px 0;
+        label {
+            font-size: 20px;
+            font-weight: bold;
         }
         
     }
 
-
-    label {
-        font-size: 20px;
-        font-weight: bold;
-    }
-
     input {
         border: none;
-        font-size: 22px;
-        width: 80%;
+        font-size: 20px;
+        width: 100%;
         border-bottom: 1px solid #08007F;
         color: #333;
-        margin: 3px 0;
+        margin: 10px 0;
         outline: none;
     }
     
-    .button-group {
-        margin-top: 30%;
-    }
-    
-    button {
-        font-size: 20px;
-        font-weight: bold;
-        padding: 10px;
-        margin: 5px;
-        border-radius: 50px;
-        border: 3px solid #08007F;
-        background: #fff;
-        width: 70%;
-    }
 
-    #facebook {
-        font-size: 14px !important;
-        font-weight: lighter;
-        background: #08007F;
-        color: #fff;
-    }
+}
 
-    #facebook svg {
-        width: 20px;
-        vertical-align: middle;
-        transform: translate(-5px, -1px);
-    }
+.button-group {
+    position: absolute;
+    width: 100%;
+    bottom: 30px;
+}
 
+.button-group > * {
+    margin-left: 50%;
+    transform: translateX(-50%);
+}
+
+#facebook {
+    font-size: 14px !important;
+    font-weight: lighter;
+    background: #08007F;
+    color: #fff;
+}
+
+#facebook svg {
+    width: 20px;
+    vertical-align: middle;
+    transform: translate(-5px, -1px);
 }
