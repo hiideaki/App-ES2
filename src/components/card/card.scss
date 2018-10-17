@@ -1,0 +1,28 @@
+card {
+    .card {
+        width: 100%;
+        position: relative;
+        display: flex;
+        border-bottom: 1px solid #000;
+        font-size: 13px;
+    
+        .materia {
+            width: 80%;
+        }
+
+        .icon {
+            width: 20%;
+            font-size: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        
+        }
+
+
+    
+    }
+    
+
+    
+}

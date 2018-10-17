@@ -1,0 +1,24 @@
+
+<ion-header>
+  <ion-navbar>
+    <ion-title>Adicionar disciplina</ion-title>
+  </ion-navbar>
+  <ion-searchbar
+  [(ngModel)]="myInput"
+  [showCancelButton]="shouldShowCancel"
+  (ionInput)="onInput($event)"
+  placeholder="Buscar disciplina"
+  type="text">
+  </ion-searchbar>
+
+</ion-header>
+
+
+<ion-content>
+  
+  <div padding>
+
+    <card *ngFor="let item of listaFiltrada" [item]="item" [icone]="'add-circle'"></card>
+
+  </div>
+</ion-content>

@@ -15,19 +15,21 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 
+$primary: #08007F;
+
 * {
     font-family: Roboto;
 }
 
-ion-header * {
-    background: #08007F !important;
+ion-header > *, ion-navbar * {
+    background: $primary !important;
     color: #fff !important;
     text-align: center;
     font-size: 20px !important;
 }
 
 ion-menu * {
-    background: #08007F !important;
+    background: $primary !important;
     color: #fff !important;
 }
 
@@ -42,22 +44,22 @@ ion-menu * {
     margin-left: 50%;
     transform: translateX(-50%);
     position: absolute;
-    bottom: 0;
-    svg {
-        fill: #fff;
-        width: 40px;
+    bottom: 20px;
+    a {
+        font-size: 30px;
+        margin: 0 5px;
     }
 }
 
 .botao {
     font-family: Roboto;
-    color: #08007F;
+    color: $primary;
     font-size: 20px;
     font-weight: bold;
     padding: 10px;
     margin: 5px;
     border-radius: 50px;
-    border: 3px solid #08007F;
+    border: 3px solid $primary;
     background: #fff;
     width: 70%;
 }
@@ -69,7 +71,7 @@ ion-menu * {
     
     * {
         font-family: Roboto;
-        color: #08007F;
+        color: $primary;
     }
 
     .form-field {
@@ -86,7 +88,7 @@ ion-menu * {
         border: none;
         font-size: 20px;
         width: 100%;
-        border-bottom: 1px solid #08007F;
+        border-bottom: 1px solid $primary;
         color: #333;
         margin: 10px 0;
         outline: none;
@@ -96,9 +98,10 @@ ion-menu * {
 }
 
 .button-group {
-    position: absolute;
+    position: relative;
     width: 100%;
-    bottom: 30px;
+    margin-top: 30px;
+    margin-bottom: 20px;
 }
 
 .button-group > * {
@@ -109,7 +112,7 @@ ion-menu * {
 #facebook {
     font-size: 14px !important;
     font-weight: lighter;
-    background: #08007F;
+    background: $primary;
     color: #fff;
 }
 

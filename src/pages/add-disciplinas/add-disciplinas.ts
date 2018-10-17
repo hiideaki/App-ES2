@@ -1,28 +1,25 @@
-import { Component, NgModule } from '@angular/core';
-import { NavController } from 'ionic-angular';
-import { CompromissoComponent } from '../../components/compromisso/compromisso'
+import { Component } from '@angular/core';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-@NgModule({
-  declarations: [
-    CompromissoComponent,
-  ]
-})
+/**
+ * Generated class for the AddDisciplinasPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
 
+@IonicPage()
 @Component({
-  selector: 'page-home',
-  templateUrl: 'home.html'
+  selector: 'page-add-disciplinas',
+  templateUrl: 'add-disciplinas.html',
 })
+export class AddDisciplinasPage {
 
-export class HomePage {
-
-  dia = '18';
-  mes = '09';
-  diaSemana = 'Terça-feira';
-
+  myInput: String;
   lista = [];
-  
+  listaFiltrada = [];
 
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.adicionarLista(1, '10:00', '12:00', 'Engenharia de Software II', 'Wilson Masashiro Yonezawa', '88.4%', 'Sala 7');
     this.adicionarLista(2, '14:00', '16:00', 'Banco de Dados II', 'Aparecido Nilceu Marana', '100.0%', 'Lepec');
    
@@ -38,6 +35,7 @@ export class HomePage {
     this.adicionarLista(1, '10:00', '12:00', 'Engenharia de Software II', 'Wilson Masashiro Yonezawa', '88.4%', 'Sala 7');
     this.adicionarLista(2, '14:00', '16:00', 'Banco de Dados II', 'Aparecido Nilceu Marana', '100.0%', 'Lepec');
     console.log(this.lista)
+    this.listaFiltrada = this.lista
   }
 
   adicionarLista(vId, vHoraIni, vHoraFim, vMateria, vProfessor, vFrequencia, vLocal) {
@@ -51,4 +49,17 @@ export class HomePage {
       local: vLocal
     });
   }
+  
+  ionViewDidLoad() {
+    
+  }
+
+  onInput(e) {
+    this.listaFiltrada = this.lista.filter((item) => {  
+      return item.materia.toLowerCase().indexOf(this.myInput.toLowerCase()) > -1
+        || item.professor.toLowerCase().indexOf(this.myInput.toLowerCase()) > -1;
+    })
+  }
+
+
 }

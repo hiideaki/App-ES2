@@ -1,37 +1,19 @@
 page-home {
     .superior {
-        background: #08007F;
         color: #fff;
-        height: 50%;
+        position: sticky;
+        width: 100%;
+        vertical-align: middle;
+
+        p {
+            margin: 0;
+            padding: 10px 0;
+        }
     }
 
-    .superior button {
-        position: fixed;
-        left: 5px;
-        top: 5px;
-        background: transparent;
-        color: #fff;
-        font-size: 25px;
+    .inferior {
+        // margin-top: 60px;
     }
-
-    .data {
-        position: absolute;
-        min-height: 10%;
-        margin-left: 50%;
-        margin-top: 70px;
-        transform: translateX(-50%);
-    }
-
-    .dia {
-        font-size: 142px;
-    }
-
-    .data p {
-        padding: 0;
-        margin: 5px 0;
-        line-height: 90%;
-    }
-
 
 }
 

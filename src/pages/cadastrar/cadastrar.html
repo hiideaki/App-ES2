@@ -13,6 +13,41 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
+  <div class="formulario">
+    
+    <div class="form-field">
+        <label>Nome</label><br>
+        <input type="text" placeholder="Insira seu nome"/><br>
+    </div>
+
+    
+    <div class="form-field">
+        <label>CPF</label><br>
+        <input type="text" placeholder="Insira seu CPF"/><br>
+    </div>
+    
+    <div class="form-field">
+        <label>E-mail</label><br>
+        <input type="email" placeholder="Insira seu e-mail"/><br>
+    </div>
+
+    <div class="form-field">
+      <label>Senha</label><br>
+      <input type="password" placeholder="Insira sua senha"/><br>
+  </div>
+
+  
+  <div class="form-field">
+    <label>Confirmar senha</label><br>
+    <input type="password" placeholder="Confirme sua senha"/><br>
+  </div>
+  
+  </div>
+    
+  <div class="button-group">
+    <button type="button" class="botao" (click)="openPage(0)">Confirmar</button>
+
+  </div>
 
 </ion-content>

@@ -31,7 +31,10 @@ export class LoginPage {
   }
 
   openPage(i) {
-    // this.navCtrl.setRoot(this.pages[i].component);
+    this.navCtrl.setRoot(this.pages[i].component);
+  }
+
+  pushPage(i) {
     this.navCtrl.push(this.pages[i].component);
   }
 

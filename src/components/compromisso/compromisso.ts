@@ -19,7 +19,7 @@ export class CompromissoComponent {
   constructor(public navCtrl: NavController) {
   }
 
-  retornaAlvo(ev) {
+  pushPage() {
     this.navCtrl.push(AulaPage, this.item);
   }
 

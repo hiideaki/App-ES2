@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 /**
- * Generated class for the AulaPage page.
+ * Generated class for the InfoCardPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -10,10 +10,10 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 @IonicPage()
 @Component({
-  selector: 'page-aula',
-  templateUrl: 'aula.html',
+  selector: 'page-info-card',
+  templateUrl: 'info-card.html',
 })
-export class AulaPage {
+export class InfoCardPage {
 
   dados: any;
 
@@ -23,7 +23,6 @@ export class AulaPage {
   ionViewDidLoad() {
     console.log(this.navParams.data)
     this.dados = this.navParams.data;
-
   }
 
 }

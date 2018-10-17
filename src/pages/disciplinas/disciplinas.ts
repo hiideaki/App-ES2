@@ -1,28 +1,34 @@
 import { Component, NgModule } from '@angular/core';
-import { NavController } from 'ionic-angular';
-import { CompromissoComponent } from '../../components/compromisso/compromisso'
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { AddDisciplinasPage } from '../add-disciplinas/add-disciplinas';
+import { CardComponent } from '../../components/card/card';
+
+/**
+ * Generated class for the DisciplinasPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+
+@IonicPage()
+
 
 @NgModule({
   declarations: [
-    CompromissoComponent,
+    CardComponent,
   ]
 })
 
 @Component({
-  selector: 'page-home',
-  templateUrl: 'home.html'
+  selector: 'page-disciplinas',
+  templateUrl: 'disciplinas.html',
 })
-
-export class HomePage {
-
-  dia = '18';
-  mes = '09';
-  diaSemana = 'Terça-feira';
-
+export class DisciplinasPage {
+  
   lista = [];
   
 
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.adicionarLista(1, '10:00', '12:00', 'Engenharia de Software II', 'Wilson Masashiro Yonezawa', '88.4%', 'Sala 7');
     this.adicionarLista(2, '14:00', '16:00', 'Banco de Dados II', 'Aparecido Nilceu Marana', '100.0%', 'Lepec');
    
@@ -51,4 +57,12 @@ export class HomePage {
       local: vLocal
     });
   }
+
+  ionViewDidLoad() {
+  }
+
+  addDisciplina() {
+    this.navCtrl.push(AddDisciplinasPage);
+  }
+
 }
