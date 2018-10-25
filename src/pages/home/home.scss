@@ -1,9 +1,5 @@
 page-home {
     .superior {
-        color: #fff;
-        position: sticky;
-        width: 100%;
-        vertical-align: middle;
 
         p {
             margin: 0;
@@ -11,8 +7,12 @@ page-home {
         }
     }
 
-    .inferior {
-        // margin-top: 60px;
+    .compromisso {
+        border-bottom: 1px solid #000;
+    }
+
+    .last > * {
+        border-bottom: none !important;
     }
 
 }

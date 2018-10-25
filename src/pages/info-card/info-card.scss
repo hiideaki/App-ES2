@@ -1,3 +1,26 @@
 page-info-card {
+    .aula {
+        width: 100%;
+        position: relative;
+        display: flex;
+        border-bottom: 1px solid #000;
+        font-size: 13px;
+    
+        .dia-semana {
+            width: 15%;
+        }
+
+        .hora {
+            width: 15%;
+        }
+
+        .local {
+            width: 70%;
+        
+        }
+
+
+    
+    }
 
 }

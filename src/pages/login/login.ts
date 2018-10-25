@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { CadastrarPage } from '../cadastrar/cadastrar';
 import { RecuperarSenhaPage } from '../recuperar-senha/recuperar-senha';
+import { DisableSideMenu } from '../../custom-decorators/disable-side-menu.decorator';
 
 /**
  * Generated class for the LoginPage page.
@@ -11,6 +12,7 @@ import { RecuperarSenhaPage } from '../recuperar-senha/recuperar-senha';
  * Ionic pages and navigation.
  */
 
+@DisableSideMenu()
 @IonicPage()
 @Component({
   selector: 'page-login',

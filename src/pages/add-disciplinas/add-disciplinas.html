@@ -18,7 +18,7 @@
   
   <div padding>
 
-    <card *ngFor="let item of listaFiltrada" [item]="item" [icone]="'add-circle'"></card>
+    <card *ngFor="let item of listaFiltrada; last as isLast;" [class.last]="isLast" [item]="item" [icone]="'add-circle'" [adicionar]='true'></card>
 
   </div>
 </ion-content>

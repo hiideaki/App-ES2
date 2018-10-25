@@ -8,17 +8,13 @@
     </ion-title>
   </ion-navbar>
   <div class="superior">
-    <div class="data">
-      <p>{{ dia }}/{{ mes }} - {{ diaSemana }}</p>
-    </div>
+    <p>{{ data }}</p>
   </div>
 </ion-header>
   
 
 <ion-content>
-
-  <div class="inferior" padding>
-    <h4>Compromissos de hoje:</h4>
-    <compromisso *ngFor="let item of lista" [item]="item"></compromisso>
+  <div padding>
+    <compromisso *ngFor="let item of lista; last as isLast;" [class.last]="isLast" [item]="item"></compromisso>
   </div>
 </ion-content>

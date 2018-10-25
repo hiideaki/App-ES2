@@ -1,3 +1,10 @@
 page-disciplinas {
+    .card {
+        border-bottom: 1px solid #000;
+    }
+
+    .last > * {
+        border: none;
+    }
     
 }

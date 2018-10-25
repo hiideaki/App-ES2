@@ -20,6 +20,9 @@ export class CardComponent {
   
   // icone está interpolado com '<ion-icon name="{{ icone }}"></ion-icon>'
   @Input() icone: string;
+  
+  // opção para inserir ou não o botão para adicionar a disciplina
+  @Input() adicionar: boolean;
 
   
 
@@ -28,7 +31,7 @@ export class CardComponent {
 
 
   pushPage() {
-    this.navCtrl.push(InfoCardPage, this.item);
+    this.navCtrl.push(InfoCardPage, [this.item, this.adicionar]);
   }
 
 

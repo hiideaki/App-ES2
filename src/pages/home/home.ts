@@ -14,10 +14,13 @@ import { CompromissoComponent } from '../../components/compromisso/compromisso'
 })
 
 export class HomePage {
-
-  dia = '18';
-  mes = '09';
-  diaSemana = 'Terça-feira';
+  // Pega a data e formata como será mostrada
+  auxData = new Date();
+  dia = this.auxData.getDate();
+  mes = this.auxData.getMonth() + 1;
+  semana = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
+  diaSemana = this.semana[this.auxData.getDay()];
+  data = this.dia + '/' + this.mes + ' - ' + this.diaSemana; 
 
   lista = [];
   

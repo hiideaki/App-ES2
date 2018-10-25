@@ -14,5 +14,43 @@
 
 
 <ion-content padding>
+  <div *ngIf="dados">
+    <h4>{{ dados.materia }}</h4>
+    <p><b>Professor:</b> {{ dados.professor }}</p>
+    <p *ngIf="!novaDisc"><b>Frequência:</b> {{ dados.frequencia }}</p>
+  </div>
+  <br><br>
+  <div *ngIf="dados">
+    <h4>Aulas</h4>
+    <div class="aula">
+     <div class="dia-semana">
+        <p>Terça-feira</p>
+      </div>
+      <div class="hora">
+        <p>{{ dados.horaIni }}</p>
+        <p>{{ dados.horaFim }}</p>
+      </div>
+      <div class="local">
+        <p>{{ dados.local }}</p>
+      </div>
+    </div>
 
+    <div class="aula">
+     <div class="dia-semana">
+        <p>Quinta-feira</p>
+      </div>
+      <div class="hora">
+        <p>{{ dados.horaIni }}</p>
+        <p>{{ dados.horaFim }}</p>
+      </div>
+      <div class="local">
+        <p>{{ dados.local }}</p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="button-group" *ngIf="novaDisc">
+    <button class="botao">Adicionar disciplina</button>
+  </div>
 </ion-content>

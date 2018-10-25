@@ -3,17 +3,14 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Disciplinas</ion-title>
+    <ion-title>Minhas disciplinas</ion-title>
   </ion-navbar>
 </ion-header>
 
 
 <ion-content padding>
   
-  <h4>Minhas disciplinas:</h4>
-
-  <card *ngFor="let item of lista" [item]="item" [icone]="'information-circle'"></card>
-  <!-- <card *ngFor="let item of lista" [item]="item"></card> -->
+  <card *ngFor="let item of lista; last as isLast" [class.last]="isLast" [item]="item" [icone]="'information-circle'" [adicionar]='false'></card>
 
   
 

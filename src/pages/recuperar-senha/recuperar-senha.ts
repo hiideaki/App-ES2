@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { DisableSideMenu } from '../../custom-decorators/disable-side-menu.decorator';
 
 /**
  * Generated class for the RecuperarSenhaPage page.
@@ -8,6 +9,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
  * Ionic pages and navigation.
  */
 
+@DisableSideMenu()
 @IonicPage()
 @Component({
   selector: 'page-recuperar-senha',

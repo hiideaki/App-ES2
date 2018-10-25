@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 /**
@@ -16,13 +16,17 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 export class InfoCardPage {
 
   dados: any;
+  novaDisc: boolean;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
     console.log(this.navParams.data)
-    this.dados = this.navParams.data;
+    this.dados = this.navParams.data[0];
+    console.log(this.dados);
+    this.novaDisc = this.navParams.data[1];
+    console.log(this.novaDisc)
   }
 
 }
