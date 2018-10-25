@@ -20,6 +20,8 @@ import { AulaPage } from '../pages/aula/aula';
 import { DisciplinasPage } from '../pages/disciplinas/disciplinas';
 import { AddDisciplinasPage } from '../pages/add-disciplinas/add-disciplinas';
 import { InfoCardPage } from '../pages/info-card/info-card';
+import { EventosPage } from '../pages/eventos/eventos';
+import { SettingsPage } from '../pages/settings/settings';
 
 @NgModule({
   declarations: [
@@ -32,6 +34,8 @@ import { InfoCardPage } from '../pages/info-card/info-card';
     DisciplinasPage,
     AddDisciplinasPage,
     InfoCardPage,
+    EventosPage,
+    SettingsPage,
     
     CardComponent,
     CompromissoComponent,
@@ -51,6 +55,8 @@ import { InfoCardPage } from '../pages/info-card/info-card';
     DisciplinasPage,
     AddDisciplinasPage,
     InfoCardPage,
+    EventosPage,
+    SettingsPage,
   ],
   providers: [
     StatusBar,

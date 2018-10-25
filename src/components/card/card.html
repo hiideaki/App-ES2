@@ -1,12 +1,12 @@
 <!-- Generated template for the CardComponent component -->
 <div class="card" (click)="pushPage()">
   <div class="materia">
-    <p>{{ item.materia }}</p>
-    <p>{{ item.professor }}</p>
+    <p *ngIf="item.materia">{{ item.materia }}</p>
+    <p *ngIf="item.professor">{{ item.professor }}</p>
+    <p *ngIf="item.titulo">{{ item.titulo }}</p>
+    <p *ngIf="item.palestrante">{{ item.palestrante }}</p>
   </div>
   <div class="icon">
-    <!-- <ion-icon name="information-circle"></ion-icon> -->
-    <!-- <ion-icon name="add-circle"></ion-icon> -->
     <ion-icon name="{{ icone }}"></ion-icon>
   </div>
 

@@ -1,0 +1,28 @@
+
+<ion-header>
+    <ion-navbar>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+      <ion-title>Eventos</ion-title>
+    </ion-navbar>
+    <ion-searchbar
+    [(ngModel)]="myInput"
+    [showCancelButton]="shouldShowCancel"
+    (ionInput)="onInput($event)"
+    placeholder="Buscar eventos"
+    type="text">
+    </ion-searchbar>
+  
+  </ion-header>
+  
+  
+  <ion-content>
+    
+    <div padding>
+  
+      <card *ngFor="let item of listaFiltrada; last as isLast;" [class.last]="isLast" [item]="item" [icone]="'add-circle'" [adicionar]='true'></card>
+  
+    </div>
+  </ion-content>
+  
