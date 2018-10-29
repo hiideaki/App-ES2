@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { CadastrarPage } from '../cadastrar/cadastrar';
@@ -6,6 +6,7 @@ import { RecuperarSenhaPage } from '../recuperar-senha/recuperar-senha';
 import { DisableSideMenu } from '../../custom-decorators/disable-side-menu.decorator';
 import { AuthProvider } from '../../providers/auth/auth';
 import { User } from '../../providers/auth/User';
+import { NgForm } from '@angular/forms';
 
 /**
  * Generated class for the LoginPage page.
@@ -22,6 +23,7 @@ import { User } from '../../providers/auth/User';
 })
 export class LoginPage {
   user: User = new User();
+  @ViewChild('form') form: NgForm;
 
   pages: Array<{title: string, component: any}>;
   constructor(public navCtrl: NavController, public navParams: NavParams, private authProvider: AuthProvider) {
@@ -44,8 +46,10 @@ export class LoginPage {
     this.navCtrl.push(this.pages[i].component);
   }
 
+  // Precisa fazer validação dos campos
   login() {
-    this.authProvider.login(this.user)
+    if(this.form.form.valid) {
+      this.authProvider.login(this.user)
       .then(() => {
         console.log('logado');
         this.navCtrl.setRoot(HomePage);
@@ -53,6 +57,9 @@ export class LoginPage {
       .catch((err) => {
         console.log(err);
       });
+    } else {
+      console.log("Preencha todos os campos");
+    }
   }
 
 }

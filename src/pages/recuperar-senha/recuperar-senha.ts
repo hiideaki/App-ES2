@@ -1,6 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { DisableSideMenu } from '../../custom-decorators/disable-side-menu.decorator';
+import { AuthProvider } from '../../providers/auth/auth';
+import { Form, NgForm } from '@angular/forms';
+import { LoginPage } from '../login/login';
 
 /**
  * Generated class for the RecuperarSenhaPage page.
@@ -16,12 +19,28 @@ import { DisableSideMenu } from '../../custom-decorators/disable-side-menu.decor
   templateUrl: 'recuperar-senha.html',
 })
 export class RecuperarSenhaPage {
+  @ViewChild('form') form: NgForm;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  userEmail: string;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private authProvider: AuthProvider) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad RecuperarSenhaPage');
+    
+  }
+
+  resetPassword() {
+    if(this.form.form.valid) {
+      this.authProvider.resetPassword(this.userEmail)
+      .then(() => {
+        console.log("Solicitação de reset de senha");
+        this.navCtrl.setRoot(LoginPage);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    }
   }
 
 }

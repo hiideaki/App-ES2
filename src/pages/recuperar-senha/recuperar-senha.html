@@ -14,14 +14,14 @@
 
 
 <ion-content>
-  <form>
+  <form #form="ngForm" id="resetpw" novalidate>
     <div class="form-field">
         <label>E-mail</label><br>
-        <input type="email" placeholder="Insira seu e-mail"/><br>
+        <input type="email" name="email" [(ngModel)]="userEmail" placeholder="Insira seu e-mail" required/><br>
     </div>
   </form>
 
   <div class="button-group">
-    <button type="button" class="botao">Enviar</button>
+    <button type="submit" class="botao" form="resetpw" (click)="resetPassword()">Enviar</button>
   </div>
 </ion-content>
