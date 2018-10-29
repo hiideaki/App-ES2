@@ -14,40 +14,37 @@
 
 
 <ion-content>
-  <div class="formulario">
-    
+  <form #form="ngForm" id="cadastro" novalidate>
     <div class="form-field">
         <label>Nome</label><br>
-        <input type="text" placeholder="Insira seu nome"/><br>
+        <input type="text" name="nome" [(ngModel)]="user.nome" placeholder="Insira seu nome" required/><br>
     </div>
-
     
     <div class="form-field">
         <label>CPF</label><br>
-        <input type="text" placeholder="Insira seu CPF"/><br>
+        <input type="text" name="cpf" placeholder="Insira seu CPF" required/><br>
     </div>
     
     <div class="form-field">
         <label>E-mail</label><br>
-        <input type="email" placeholder="Insira seu e-mail"/><br>
+        <input type="email" name="email" [(ngModel)]="user.email" placeholder="Insira seu e-mail" required/><br>
     </div>
 
     <div class="form-field">
       <label>Senha</label><br>
-      <input type="password" placeholder="Insira sua senha"/><br>
-  </div>
+      <input type="password" name="password" [(ngModel)]="user.password" placeholder="Insira sua senha" required/><br>
+    </div>
+  
+    <div class="form-field">
+      <label>Confirmar senha</label><br>
+      <input type="password" placeholder="Confirme sua senha" required/><br>
+    </div>
+  
+  </form>
 
-  
-  <div class="form-field">
-    <label>Confirmar senha</label><br>
-    <input type="password" placeholder="Confirme sua senha"/><br>
-  </div>
-  
-  </div>
-    
   <div class="button-group">
-    <button type="button" class="botao" (click)="openPage(0)">Confirmar</button>
-
+    <button type="submit" class="botao" form="cadastro" (click)="criarConta()">Confirmar</button>
   </div>
+
 
 </ion-content>

@@ -1,6 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { DisableSideMenu } from '../../custom-decorators/disable-side-menu.decorator';
+import { NgForm } from '@angular/forms';
+import { User } from '../../providers/auth/User';
+import { AuthProvider } from '../../providers/auth/auth';
+import { HomePage } from '../home/home';
+
 /**
  * Generated class for the CadastrarPage page.
  *
@@ -14,12 +19,31 @@ import { DisableSideMenu } from '../../custom-decorators/disable-side-menu.decor
   templateUrl: 'cadastrar.html',
 })
 export class CadastrarPage {
+  user: User = new User();
+  @ViewChild('form') form: NgForm;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private authProvider: AuthProvider) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad CadastrarPage');
+
+  }
+
+  // Precisa fazer validação
+  criarConta() {
+    console.log("Criando conta");
+    if(this.form.form.valid) {
+      this.authProvider.createUser(this.user)
+        .then((user: any) => {
+          console.log("Usuário criado com sucesso");
+          this.navCtrl.setRoot(HomePage);
+        })
+        .catch((err: any) => {
+          console.log(err);
+        })
+    } else {
+      
+    }
   }
 
 }

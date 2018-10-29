@@ -65,10 +65,9 @@ ion-menu * {
     width: 70%;
 }
 
-.formulario {
-    width: 70%;
-    margin-left: 50%;
-    transform: translateX(-50%);
+form {
+    width: 100%;
+    padding: 0 15%;
     
     * {
         font-family: Roboto;

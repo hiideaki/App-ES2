@@ -14,22 +14,22 @@
 
 
 <ion-content>
-  <div class="formulario">
+  <form #form="ngForm" id="login" novalidate>
     <div class="form-field">
         <label>E-mail</label><br>
-        <input type="email" placeholder="Insira seu e-mail"/><br>
+        <input type="email" name="email" [(ngModel)]="user.email"  placeholder="Insira seu e-mail" required/><br>
     </div>
 
     <div class="form-field">
         <label>Senha</label><br>
-        <input type="password" placeholder="Insira sua senha"/><br>
+        <input type="password" name="password" [(ngModel)]="user.password"  placeholder="Insira sua senha" required/><br>
     </div>
     
     <a (click)="pushPage(2)">Esqueci minha senha</a><br>
-  </div>
+  </form>
     
   <div class="button-group">
-    <button type="button" class="botao" (click)="openPage(0)">Entrar</button><br>
+    <button type="submit" class="botao" form="login" (click)="login()">Entrar</button><br>
 
     <button type="button" class="botao" (click)="pushPage(1)">Cadastrar</button><br>
 

@@ -8,6 +8,9 @@ import { LoginPage } from '../pages/login/login';
 import { DisciplinasPage } from '../pages/disciplinas/disciplinas';
 import { EventosPage } from '../pages/eventos/eventos';
 import { SettingsPage } from '../pages/settings/settings';
+import { AuthProvider } from '../providers/auth/auth';
+
+import { AngularFireAuth } from 'angularfire2/auth';
 
 @Component({
   templateUrl: 'app.html'
@@ -19,7 +22,16 @@ export class MyApp {
 
   pages: Array<{title: string, component: any}>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, private authProvider: AuthProvider, private afAuth: AngularFireAuth) {
+    const authObserver = afAuth.authState.subscribe((user) => {
+      if(user) {
+        this.rootPage = HomePage;
+      } else {
+        this.rootPage = LoginPage;
+      }
+      authObserver.unsubscribe();
+    })
+   
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -51,7 +63,13 @@ export class MyApp {
   }
 
   logout() {
-    this.nav.setRoot(LoginPage);
+    this.authProvider.signOut()
+      .then(() => {
+        this.nav.setRoot(LoginPage);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
 }

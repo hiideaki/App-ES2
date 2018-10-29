@@ -10,6 +10,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { Geolocation } from '@ionic-native/geolocation';
 
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+
 import { CompromissoComponent } from '../components/compromisso/compromisso';
 import { CardComponent } from '../components/card/card';
 
@@ -22,6 +25,17 @@ import { AddDisciplinasPage } from '../pages/add-disciplinas/add-disciplinas';
 import { InfoCardPage } from '../pages/info-card/info-card';
 import { EventosPage } from '../pages/eventos/eventos';
 import { SettingsPage } from '../pages/settings/settings';
+
+import { AuthProvider } from '../providers/auth/auth';
+
+var firebaseConfig = {
+  apiKey: "AIzaSyCMM3RGIGCkGl9GhJn_Y4GFhY__3zjDd80",
+  authDomain: "unesp-esii-1540422166847.firebaseapp.com",
+  databaseURL: "https://unesp-esii-1540422166847.firebaseio.com",
+  projectId: "unesp-esii-1540422166847",
+  storageBucket: "unesp-esii-1540422166847.appspot.com",
+  messagingSenderId: "130150402224"
+};
 
 @NgModule({
   declarations: [
@@ -43,6 +57,8 @@ import { SettingsPage } from '../pages/settings/settings';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireAuthModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -62,7 +78,8 @@ import { SettingsPage } from '../pages/settings/settings';
     StatusBar,
     SplashScreen,
     Geolocation,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    AuthProvider,
   ]
 })
 export class AppModule {
