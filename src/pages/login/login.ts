@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, ToastController } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { CadastrarPage } from '../cadastrar/cadastrar';
 import { RecuperarSenhaPage } from '../recuperar-senha/recuperar-senha';
@@ -26,7 +26,7 @@ export class LoginPage {
   @ViewChild('form') form: NgForm;
 
   pages: Array<{title: string, component: any}>;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private authProvider: AuthProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private authProvider: AuthProvider, private toastCtrl: ToastController, private loadingCtrl: LoadingController) {
     // Apagar depois
     this.pages = [
       { title: 'Home', component: HomePage },
@@ -48,14 +48,41 @@ export class LoginPage {
 
   // Precisa fazer validação dos campos
   login() {
+    let loading = this.loadingCtrl.create({
+      spinner: 'crescent',
+      content: 'Carregando'
+    })
+    let toast = this.toastCtrl.create({
+      duration: 3000,
+      position: 'bottom'
+    })
     if(this.form.form.valid) {
+      loading.present();
       this.authProvider.login(this.user)
       .then(() => {
         console.log('logado');
+        loading.dismiss();
         this.navCtrl.setRoot(HomePage);
       })
       .catch((err) => {
-        console.log(err);
+        loading.dismiss();
+        switch(err.code) {
+          case 'auth/user-disabled':
+            toast.setMessage("Esta conta foi desabilitada");
+            break;
+          case 'auth/invalid-email':
+            toast.setMessage("Endereço de e-mail inválido");
+            break;
+          case 'auth/user-not-found':
+            toast.setMessage("Este usuário não existe");
+            break;
+          case 'auth/wrong-password':
+          toast.setMessage("Senha incorreta");
+            break;
+          default:
+            toast.setMessage(err.message);
+        }
+        toast.present();
       });
     } else {
       console.log("Preencha todos os campos");

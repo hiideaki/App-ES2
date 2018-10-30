@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, LoadingController } from 'ionic-angular';
 import { DisableSideMenu } from '../../custom-decorators/disable-side-menu.decorator';
 import { AuthProvider } from '../../providers/auth/auth';
 import { Form, NgForm } from '@angular/forms';
@@ -23,7 +23,7 @@ export class RecuperarSenhaPage {
 
   userEmail: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private authProvider: AuthProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private authProvider: AuthProvider, private toastCtrl: ToastController, private loadingCtrl: LoadingController) {
   }
 
   ionViewDidLoad() {
@@ -31,14 +31,35 @@ export class RecuperarSenhaPage {
   }
 
   resetPassword() {
+    let toast = this.toastCtrl.create({
+      duration: 3000,
+      position: 'bottom'
+    })
+    let loading = this.loadingCtrl.create({
+      spinner: 'crescent',
+      content: 'Carregando'
+    })
     if(this.form.form.valid) {
+      loading.present();
       this.authProvider.resetPassword(this.userEmail)
       .then(() => {
         console.log("Solicitação de reset de senha");
+        loading.dismiss();
         this.navCtrl.setRoot(LoginPage);
       })
       .catch((err) => {
-        console.log(err);
+        loading.dismiss();
+        switch(err.code) {
+          case 'auth/invalid-email':
+            toast.setMessage("Endereço de e-mail inválido");
+            break;
+          case 'auth/user-not-found':
+            toast.setMessage("Este usuário não existe");
+            break;
+          default:
+            toast.setMessage(err.message);
+        }
+        toast.present();
       });
     }
   }

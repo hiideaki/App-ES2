@@ -37,11 +37,11 @@
   
     <div class="form-field">
       <label>Confirmar senha</label><br>
-      <input type="password" placeholder="Confirme sua senha" required/><br>
+      <input type="password" name="confirmPassword" [(ngModel)]="confirmPw" placeholder="Confirme sua senha" required/><br>
     </div>
   
   </form>
-
+  
   <div class="button-group">
     <button type="submit" class="botao" form="cadastro" (click)="criarConta()">Confirmar</button>
   </div>
