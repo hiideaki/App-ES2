@@ -5,7 +5,7 @@ import { CadastrarPage } from '../cadastrar/cadastrar';
 import { RecuperarSenhaPage } from '../recuperar-senha/recuperar-senha';
 import { DisableSideMenu } from '../../custom-decorators/disable-side-menu.decorator';
 import { AuthProvider } from '../../providers/auth/auth';
-import { User } from '../../providers/auth/User';
+import { User } from '../../providers/auth/user';
 import { NgForm } from '@angular/forms';
 
 /**

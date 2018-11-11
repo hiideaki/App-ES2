@@ -9,5 +9,8 @@ import { InfoCardPage } from './info-card';
   imports: [
     IonicPageModule.forChild(InfoCardPage),
   ],
+  exports: [
+    InfoCardPage
+  ]
 })
 export class InfoCardPageModule {}

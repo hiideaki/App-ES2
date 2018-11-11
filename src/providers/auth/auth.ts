@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { AngularFireAuth } from 'angularfire2/auth';
-import { User } from './User';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { User } from './user';
 import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs';
 
@@ -12,8 +12,17 @@ export class AuthProvider {
     this.user = angularFireAuth.authState;
   }
 
-  createUser(user: User) {
-    return this.angularFireAuth.auth.createUserWithEmailAndPassword(user.email, user.password);
+  createUser(user: User): Promise <void>{
+    return this.angularFireAuth.auth.createUserWithEmailAndPassword(user.email, user.password).then(
+      newUserCredential => {
+        firebase.firestore().doc(`/users/${newUserCredential.user.uid}`).set({
+          nome: user.nome,
+          cpf: user.cpf
+        })
+      }).catch(error => {
+        console.error(error);
+        throw new Error(error);
+      });
   }
 
   login(user: User) {

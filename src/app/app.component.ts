@@ -10,7 +10,7 @@ import { EventosPage } from '../pages/eventos/eventos';
 import { SettingsPage } from '../pages/settings/settings';
 import { AuthProvider } from '../providers/auth/auth';
 
-import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
   templateUrl: 'app.html'
