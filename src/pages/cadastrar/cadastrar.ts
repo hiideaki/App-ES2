@@ -6,12 +6,6 @@ import { User } from '../../providers/auth/User';
 import { AuthProvider } from '../../providers/auth/auth';
 import { HomePage } from '../home/home';
 
-/**
- * Generated class for the CadastrarPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 @DisableSideMenu()
 @IonicPage()
 @Component({
