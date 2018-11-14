@@ -1,6 +1,7 @@
 import { Component, NgModule } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { CompromissoComponent } from '../../components/compromisso/compromisso'
+import { CompromissoComponent } from '../../components/compromisso/compromisso';
+import * as firebase from 'firebase/app';
 
 @NgModule({
   declarations: [
@@ -23,12 +24,12 @@ export class HomePage {
   data = this.dia + '/' + this.mes + ' - ' + this.diaSemana; 
 
   lista = [];
-  
+
 
   constructor(public navCtrl: NavController) {
     this.adicionarLista(1, '10:00', '12:00', 'Engenharia de Software II', 'Wilson Masashiro Yonezawa', '88.4%', 'Sala 7');
     this.adicionarLista(2, '14:00', '16:00', 'Banco de Dados II', 'Aparecido Nilceu Marana', '100.0%', 'Lepec');
-   
+   /*
     this.adicionarLista(1, '10:00', '12:00', 'Engenharia de Software II', 'Wilson Masashiro Yonezawa', '88.4%', 'Sala 7');
     this.adicionarLista(2, '14:00', '16:00', 'Banco de Dados II', 'Aparecido Nilceu Marana', '100.0%', 'Lepec');
    
@@ -40,7 +41,10 @@ export class HomePage {
    
     this.adicionarLista(1, '10:00', '12:00', 'Engenharia de Software II', 'Wilson Masashiro Yonezawa', '88.4%', 'Sala 7');
     this.adicionarLista(2, '14:00', '16:00', 'Banco de Dados II', 'Aparecido Nilceu Marana', '100.0%', 'Lepec');
-    console.log(this.lista)
+    console.log(this.lista)*/
+  
+    console.log(firebase.auth().currentUser.email);
+
   }
 
   adicionarLista(vId, vHoraIni, vHoraFim, vMateria, vProfessor, vFrequencia, vLocal) {

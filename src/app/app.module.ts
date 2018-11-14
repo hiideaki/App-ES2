@@ -1,3 +1,4 @@
+import { AddDisciplinasPageModule } from './../pages/add-disciplinas/add-disciplinas.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule, Injector } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
@@ -10,8 +11,10 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { Geolocation } from '@ionic-native/geolocation';
 
-import { AngularFireModule } from 'angularfire2';
-import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireDatabaseModule, AngularFireDatabase } from '@angular/fire/database';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 import { CompromissoComponent } from '../components/compromisso/compromisso';
 import { CardComponent } from '../components/card/card';
@@ -27,6 +30,8 @@ import { EventosPage } from '../pages/eventos/eventos';
 import { SettingsPage } from '../pages/settings/settings';
 
 import { AuthProvider } from '../providers/auth/auth';
+import { DBservices } from '../providers/database/databaseservices';
+import { ReactiveFormsModule } from '@angular/forms';
 
 var firebaseConfig = {
   apiKey: "AIzaSyCMM3RGIGCkGl9GhJn_Y4GFhY__3zjDd80",
@@ -37,6 +42,7 @@ var firebaseConfig = {
   messagingSenderId: "130150402224"
 };
 
+
 @NgModule({
   declarations: [
     MyApp,
@@ -46,8 +52,8 @@ var firebaseConfig = {
     RecuperarSenhaPage,
     AulaPage,
     DisciplinasPage,
-    AddDisciplinasPage,
-    InfoCardPage,
+    //AddDisciplinasPage,
+    //InfoCardPage,
     EventosPage,
     SettingsPage,
     
@@ -59,6 +65,10 @@ var firebaseConfig = {
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireAuthModule,
+    AngularFireDatabaseModule,
+    AngularFirestoreModule,
+    ReactiveFormsModule,
+    AddDisciplinasPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -80,6 +90,8 @@ var firebaseConfig = {
     Geolocation,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthProvider,
+    DBservices,
+    AngularFireDatabase,
   ]
 })
 export class AppModule {

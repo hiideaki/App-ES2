@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController, LoadingController } from 'ionic-angular';
 import { DisableSideMenu } from '../../custom-decorators/disable-side-menu.decorator';
 import { NgForm } from '@angular/forms';
-import { User } from '../../providers/auth/User';
+import { User } from '../../providers/auth/user';
 import { AuthProvider } from '../../providers/auth/auth';
 import { HomePage } from '../home/home';
 
