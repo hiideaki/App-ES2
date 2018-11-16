@@ -1,10 +1,10 @@
 import { AngularFireDatabase } from '@angular/fire/database';
-import { AngularFirestore } from '@angular/fire/firestore';
 import { DBservices } from '../../providers/database/databaseservices';
 import { Observable } from 'rxjs';
 import { Disciplina } from './../../providers/database/disciplina';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+
 
 /**
  * Generated class for the AddDisciplinasPage page.
@@ -18,9 +18,11 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   selector: 'page-add-disciplinas',
   templateUrl: 'add-disciplinas.html',
 })
+
 export class AddDisciplinasPage {
   myInput: String;
-  listaFiltrada = [];
+  listaFiltrada: any[];
+  listaOrig: any[];
   lista: Observable<any[]>;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private dbServices: DBservices, private afDB: AngularFireDatabase) {
@@ -45,28 +47,32 @@ export class AddDisciplinasPage {
 
   ionViewDidLoad(){
     this.lista = this.dbServices.getListaTodasDisciplinas().valueChanges();
-    console.log(this.lista);
-  }
+    this.myInput = '';
 
-
-  /*adicionarLista(vId, vHoraIni, vHoraFim, vMateria, vProfessor, vFrequencia, vLocal) {
-    this.lista.push({
-      id: vId,
-      horaIni: vHoraIni,
-      horaFim: vHoraFim,
-      materia: vMateria,
-      professor: vProfessor,
-      frequencia: vFrequencia,
-      local: vLocal
+    this.lista.subscribe((items : any[]) => {
+      this.listaOrig = items;
+      this.listaFiltrada = this.listaOrig;
     });
+
+    // this.lista.subscribe((items : any[]) => {
+    //   this.listaFiltrada = items.filter((item) => {  
+    //        return item.nome.toLowerCase().indexOf(this.myInput.toLowerCase()) > -1
+    //          || item.docente.toLowerCase().indexOf(this.myInput.toLowerCase()) > -1
+    //     })
+    //   });
   }
+
+
+
 
   onInput(e) {
-    this.listaFiltrada = this.lista.filter((item) => {  
-      return item.materia.toLowerCase().indexOf(this.myInput.toLowerCase()) > -1
-        || item.professor.toLowerCase().indexOf(this.myInput.toLowerCase()) > -1;
-    })
-  }*/
+    console.log(this.myInput)
+    this.listaFiltrada = this.listaOrig.filter((item) => {  
+      return item.nome.toLowerCase().indexOf(this.myInput.toLowerCase()) > -1
+        || item.docente.toLowerCase().indexOf(this.myInput.toLowerCase()) > -1;
+    });
+    console.log(this.listaFiltrada);
+  }
 
   goToInfoCard(dados: Disciplina): void{
     this.navCtrl.push('InfoCardPage', { dados: dados});

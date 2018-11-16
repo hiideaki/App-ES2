@@ -1,8 +1,9 @@
 <!-- Generated template for the CardComponent component -->
 <div class="card" (click)="pushPage()">
+  {{item.nome}}
   <div class="materia">
-    <p *ngIf="item.materia">{{ item.materia }}</p>
-    <p *ngIf="item.professor">{{ item.professor }}</p>
+    <p *ngIf="item.nome">{{ item.nome }}</p>
+    <p *ngIf="item.docente">{{ item.docente }}</p>
     <p *ngIf="item.titulo">{{ item.titulo }}</p>
     <p *ngIf="item.palestrante">{{ item.palestrante }}</p>
   </div>

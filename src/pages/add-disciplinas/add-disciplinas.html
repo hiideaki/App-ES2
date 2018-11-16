@@ -3,7 +3,7 @@
   <ion-navbar>
     <ion-title>Adicionar disciplina</ion-title>
   </ion-navbar>
-<!--
+
   <ion-searchbar
   [(ngModel)]="myInput"
   [showCancelButton]="shouldShowCancel"
@@ -11,7 +11,7 @@
   placeholder="Buscar disciplina"
   type="text">
   </ion-searchbar>
--->
+
 </ion-header>
 
 
@@ -19,9 +19,9 @@
   
   <div padding>
 
-    <!--<card *ngFor="let item of listaFiltrada; last as isLast;" [class.last]="isLast" [item]="item" [icone]="'add-circle'" [adicionar]='true'></card>-->
-
-    <ion-card *ngFor="let disciplina of lista | async" (click)="goToInfoCard(disciplina)">
+    <!-- <card *ngFor="let item of listaFiltrada; last as isLast;" [class.last]="isLast" [item]="item" [icone]="'add-circle'" [adicionar]='true'></card> -->
+    
+    <ion-card *ngFor="let disciplina of listaFiltrada" (click)="goToInfoCard(disciplina)">
       <ion-card-header>
         {{ disciplina.nome }}
       </ion-card-header>

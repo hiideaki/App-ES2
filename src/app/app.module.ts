@@ -68,7 +68,7 @@ var firebaseConfig = {
     AngularFireDatabaseModule,
     AngularFirestoreModule,
     ReactiveFormsModule,
-    AddDisciplinasPageModule
+    AddDisciplinasPageModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [

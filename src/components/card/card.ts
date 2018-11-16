@@ -17,7 +17,7 @@ import { InfoCardPage } from '../../pages/info-card/info-card';
 export class CardComponent {
 
   @Input() item: any;
-  
+
   // icone está interpolado com '<ion-icon name="{{ icone }}"></ion-icon>'
   @Input() icone: string;
   
