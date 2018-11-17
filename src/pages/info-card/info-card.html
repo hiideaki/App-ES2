@@ -15,14 +15,14 @@
 
 <ion-content padding>
   <div *ngIf="dados">
-    <h4>{{ dados.nome }}</h4>
+    <h4 style="font-weight: bold;">{{ dados.nome }}</h4>
     <p><b>Docente:</b> {{ dados.docente }}</p>
-    <!--<p *ngIf="!novaDisc"><b>Frequência:</b> {{ dados. }}</p>-->
+    <p *ngIf="!novaDisc"><b>Frequência:</b> {{ dados.docente }}</p>
   </div>
-  <!--
+
   <br><br>
   <div *ngIf="dados">
-    <h4>Aulas</h4>
+    <h4 style="font-weight: bold;">Aulas</h4>
     <div class="aula">
      <div class="dia-semana">
         <p>Terça-feira</p>
@@ -50,7 +50,7 @@
     </div>
 
   </div>
--->
+
   <div class="button-group" *ngIf="novaDisc">
     <button class="botao">Adicionar disciplina</button>
   </div>

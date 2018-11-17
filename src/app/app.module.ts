@@ -31,6 +31,7 @@ import { SettingsPage } from '../pages/settings/settings';
 import { AuthProvider } from '../providers/auth/auth';
 import { DBservices } from '../providers/database/databaseservices';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ProfAddDisciplinaPage } from '../pages/prof-add-disciplina/prof-add-disciplina';
 
 var firebaseConfig = {
   apiKey: "AIzaSyCMM3RGIGCkGl9GhJn_Y4GFhY__3zjDd80",
@@ -55,6 +56,7 @@ var firebaseConfig = {
     //InfoCardPage,
     EventosPage,
     SettingsPage,
+    ProfAddDisciplinaPage,
 
     CompromissoComponent,
   ],
@@ -81,6 +83,7 @@ var firebaseConfig = {
     InfoCardPage,
     EventosPage,
     SettingsPage,
+    ProfAddDisciplinaPage,
   ],
   providers: [
     StatusBar,

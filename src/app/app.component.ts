@@ -11,6 +11,7 @@ import { SettingsPage } from '../pages/settings/settings';
 import { AuthProvider } from '../providers/auth/auth';
 
 import { AngularFireAuth } from '@angular/fire/auth';
+import { ProfAddDisciplinaPage } from '../pages/prof-add-disciplina/prof-add-disciplina';
 
 @Component({
   templateUrl: 'app.html'
@@ -29,6 +30,8 @@ export class MyApp {
       } else {
         this.rootPage = LoginPage;
       }
+      this.pages.push({ title: 'Adicionar disciplina', component: ProfAddDisciplinaPage});
+      console.log(this.pages);
       authObserver.unsubscribe();
     })
    
