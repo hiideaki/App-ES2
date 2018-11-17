@@ -3,7 +3,7 @@ import { DBservices } from '../../providers/database/databaseservices';
 import { Observable } from 'rxjs';
 import { Disciplina } from './../../providers/database/disciplina';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 
 
 /**
@@ -25,7 +25,7 @@ export class AddDisciplinasPage {
   listaOrig: any[];
   lista: Observable<any[]>;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private dbServices: DBservices, private afDB: AngularFireDatabase) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private loadingCtrl: LoadingController, private dbServices: DBservices, private afDB: AngularFireDatabase) {
     /*this.adicionarLista(1, '10:00', '12:00', 'Engenharia de Software II', 'Wilson Masashiro Yonezawa', '88.4%', 'Sala 7');
     this.adicionarLista(2, '14:00', '16:00', 'Banco de Dados II', 'Aparecido Nilceu Marana', '100.0%', 'Lepec');
    
@@ -42,28 +42,24 @@ export class AddDisciplinasPage {
     this.adicionarLista(2, '14:00', '16:00', 'Banco de Dados II', 'Aparecido Nilceu Marana', '100.0%', 'Lepec');
     console.log(this.lista);
     this.listaFiltrada = this.lista;*/
-    
   }
 
   ionViewDidLoad(){
+    let loading = this.loadingCtrl.create({
+      spinner: 'crescent',
+      content: 'Carregando'
+    });
+    loading.present();
     this.lista = this.dbServices.getListaTodasDisciplinas().valueChanges();
     this.myInput = '';
 
     this.lista.subscribe((items : any[]) => {
       this.listaOrig = items;
       this.listaFiltrada = this.listaOrig;
+      loading.dismiss();
     });
 
-    // this.lista.subscribe((items : any[]) => {
-    //   this.listaFiltrada = items.filter((item) => {  
-    //        return item.nome.toLowerCase().indexOf(this.myInput.toLowerCase()) > -1
-    //          || item.docente.toLowerCase().indexOf(this.myInput.toLowerCase()) > -1
-    //     })
-    //   });
   }
-
-
-
 
   onInput(e) {
     console.log(this.myInput)
@@ -74,8 +70,10 @@ export class AddDisciplinasPage {
     console.log(this.listaFiltrada);
   }
 
-  goToInfoCard(dados: Disciplina): void{
-    this.navCtrl.push('InfoCardPage', { dados: dados});
+  pushPage(dados: Disciplina) {
+    console.log(dados);
+    this.navCtrl.push('InfoCardPage', { dados: dados, novaDisc: true });
+
   }
 
 }

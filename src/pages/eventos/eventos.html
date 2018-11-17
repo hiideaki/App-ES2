@@ -21,7 +21,18 @@
     
     <div padding>
   
-      <card *ngFor="let item of listaFiltrada; last as isLast;" [class.last]="isLast" [item]="item" [icone]="'add-circle'" [adicionar]='true'></card>
+      <!-- <card *ngFor="let item of listaFiltrada; last as isLast;" [class.last]="isLast" [item]="item" [icone]="'add-circle'" [adicionar]='true'></card> -->
+  
+
+      <div *ngFor="let item of listaFiltrada" class="card" (click)="pushPage()">
+        <div class="materia">
+          <p *ngIf="item.titulo">{{ item.titulo }}</p>
+          <p *ngIf="item.palestrante">{{ item.palestrante }}</p>
+        </div>
+        <div class="icon">
+          <ion-icon name="add-circle"></ion-icon>
+        </div>
+      </div>
   
     </div>
   </ion-content>

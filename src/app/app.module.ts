@@ -17,7 +17,6 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 import { CompromissoComponent } from '../components/compromisso/compromisso';
-import { CardComponent } from '../components/card/card';
 
 import { LoginPage } from '../pages/login/login';
 import { CadastrarPage } from '../pages/cadastrar/cadastrar';
@@ -56,8 +55,7 @@ var firebaseConfig = {
     //InfoCardPage,
     EventosPage,
     SettingsPage,
-    
-    CardComponent,
+
     CompromissoComponent,
   ],
   imports: [

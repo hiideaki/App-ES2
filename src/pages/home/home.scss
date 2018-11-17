@@ -1,19 +1,67 @@
 page-home {
-    .superior {
 
-        p {
-            margin: 0;
-            padding: 10px 0;
+    > * {
+        background-image: $bgGradient;
+    }
+
+    * {
+        color: #fff;
+    }
+
+    .data {
+        position: relative;
+        white-space: nowrap;
+        display: inline-block;
+
+        color: $primary;
+        background: #fff;
+        border-radius: 50px;
+        font-size: 20px;
+        padding: 4px 20px;
+        margin: -10px 0 0 50%;
+        transform: translateX(-50%);
+        text-align: center;
+        transition: .5s;
+    }
+
+    .mostrarSemana {
+        max-width: 100% !important;
+        opacity: 1;
+    }
+
+    .data::after {
+        content: '';
+        position: absolute;
+        background: #fff;
+        width: 100vw;
+        height: 2px;
+        top: 50%;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: -1;
+    }
+
+
+    .compromisso {
+        border-bottom: 1px solid #fff;
+    }
+
+    .last .compromisso {
+        border: none;
+    }
+
+    .vazio {
+        position: relative;
+        text-align: center;
+        margin-top: 50%;
+        transform: translateY(-50%);
+
+        font-size: 25px;
+        span {
+            font-size: 40px;
         }
     }
 
-    .compromisso {
-        border-bottom: 1px solid #000;
-    }
-
-    .last > * {
-        border-bottom: none !important;
-    }
 
 }
 

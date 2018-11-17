@@ -1,16 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CompromissoComponent } from './compromisso/compromisso';
-import { CardComponent } from './card/card';
 
 @NgModule({
 	declarations: [
-		CompromissoComponent,
-    CardComponent,
+		CompromissoComponent
 	],
 	imports: [],
 	exports: [
-		CompromissoComponent,
-    CardComponent
+		CompromissoComponent
 	]
 })
 export class ComponentsModule {}

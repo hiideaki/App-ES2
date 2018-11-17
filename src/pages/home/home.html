@@ -1,20 +1,26 @@
-<ion-header>
-  <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>
-      Home
-    </ion-title>
-  </ion-navbar>
-  <div class="superior">
-    <p>{{ data }}</p>
-  </div>
+<!-- <ion-header no-border transparent>
 </ion-header>
-  
+   -->
 
 <ion-content>
+
+  <div class="heade">
+    <button ion-button menuToggle icon-only clear>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+  </div>
+
+  <div class="data">
+    {{ data }}
+  </div>
+
+  
+
   <div padding>
     <compromisso *ngFor="let item of lista; last as isLast;" [class.last]="isLast" [item]="item"></compromisso>
+    <div class="vazio" *ngIf="lista.length == 0">
+      <span><ion-icon name="checkmark-circle-outline"></ion-icon></span>
+      <p>Você não tem compromissos hoje</p>
+    </div>
   </div>
 </ion-content>

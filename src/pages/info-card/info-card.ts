@@ -16,11 +16,12 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class InfoCardPage {
 
-  public dados: Disciplina;
+  dados: Disciplina;
   novaDisc: boolean;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.dados = this.navParams.get('dados');
+    this.novaDisc = this.navParams.get('novaDisc');
   }
 
   ionViewDidLoad() {

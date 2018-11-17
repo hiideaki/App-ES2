@@ -1,10 +1,31 @@
 page-disciplinas {
     .card {
-        border-bottom: 1px solid #000;
+        width: 100%;
+        position: relative;
+        display: flex;
+        font-size: 13px;
+
+
+    
+        .materia {
+            width: 80%;
+        }
+
+        .icon {
+            width: 20%;
+            font-size: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        
+        }
+
+
+    
     }
 
-    .last > * {
-        border: none;
+    .card:not(:last-of-type) {
+        border-bottom: 1px solid #000;
     }
     
 }

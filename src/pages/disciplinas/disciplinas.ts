@@ -1,7 +1,7 @@
 import { Component, NgModule } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AddDisciplinasPage } from '../add-disciplinas/add-disciplinas';
-import { CardComponent } from '../../components/card/card';
+import { Disciplina } from '../../providers/database/disciplina';
 
 /**
  * Generated class for the DisciplinasPage page.
@@ -11,13 +11,6 @@ import { CardComponent } from '../../components/card/card';
  */
 
 @IonicPage()
-
-
-@NgModule({
-  declarations: [
-    CardComponent,
-  ]
-})
 
 @Component({
   selector: 'page-disciplinas',
@@ -29,9 +22,9 @@ export class DisciplinasPage {
   
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
-    /*this.adicionarLista(1, '10:00', '12:00', 'Engenharia de Software II', 'Wilson Masashiro Yonezawa', '88.4%', 'Sala 7');
-    this.adicionarLista(2, '14:00', '16:00', 'Banco de Dados II', 'Aparecido Nilceu Marana', '100.0%', 'Lepec');
-   
+    this.adicionarLista(1, 'Engenharia de Software II', 'Wilson Masashiro Yonezawa');
+    this.adicionarLista(2, 'Banco de Dados II', 'Aparecido Nilceu Marana');
+    /*
     this.adicionarLista(1, '10:00', '12:00', 'Engenharia de Software II', 'Wilson Masashiro Yonezawa', '88.4%', 'Sala 7');
     this.adicionarLista(2, '14:00', '16:00', 'Banco de Dados II', 'Aparecido Nilceu Marana', '100.0%', 'Lepec');
    
@@ -46,15 +39,11 @@ export class DisciplinasPage {
     console.log(this.lista)*/
   }
 
-  adicionarLista(vId, vHoraIni, vHoraFim, vMateria, vProfessor, vFrequencia, vLocal) {
+  adicionarLista(vId, vMateria, vProfessor) {
     this.lista.push({
       id: vId,
-      horaIni: vHoraIni,
-      horaFim: vHoraFim,
-      materia: vMateria,
-      professor: vProfessor,
-      frequencia: vFrequencia,
-      local: vLocal
+      nome: vMateria,
+      docente: vProfessor,
     });
   }
 
@@ -63,6 +52,12 @@ export class DisciplinasPage {
 
   addDisciplina() {
     this.navCtrl.push(AddDisciplinasPage);
+  }
+
+  pushPage(dados: Disciplina) {
+    console.log(dados);
+    this.navCtrl.push('InfoCardPage', { dados: dados, novaDisc: false });
+
   }
 
 }

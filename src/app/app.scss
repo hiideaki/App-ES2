@@ -15,10 +15,9 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 
-$primary: #08007F;
 
 * {
-    font-family: Roboto;
+    font-family: Raleway;
 }
 
 ion-header > *, ion-navbar * {
@@ -29,9 +28,14 @@ ion-header > *, ion-navbar * {
 }
 
 ion-menu * {
-    background: $primary !important;
     color: #fff !important;
     border: none !important;
+    background: transparent !important;
+    // background: $primary !important;
+}
+
+ion-menu ion-content{
+    background-image: $bgGradient !important;
 }
 
 .profile-picture {
@@ -53,7 +57,7 @@ ion-menu * {
 }
 
 .botao {
-    font-family: Roboto;
+    font-family: Raleway;
     color: $primary;
     font-size: 20px;
     font-weight: bold;

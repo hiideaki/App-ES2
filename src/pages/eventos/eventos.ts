@@ -24,6 +24,8 @@ export class EventosPage {
     this.adicionarLista(2, '25/12', '00h01', '23h59', 'Natal', 'Papai Noel', 'Osasco');
 
     this.listaFiltrada = this.lista
+
+    console.log(this.listaFiltrada)
   }
 
   ionViewDidLoad() {
@@ -47,6 +49,10 @@ export class EventosPage {
       return item.titulo.toLowerCase().indexOf(this.myInput.toLowerCase()) > -1
         || item.palestrante.toLowerCase().indexOf(this.myInput.toLowerCase()) > -1;
     })
+  }
+
+  pushPage() {
+    
   }
   
 
