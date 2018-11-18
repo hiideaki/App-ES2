@@ -108,6 +108,10 @@ export class DBservices {
     })
   }
 
+  getEventosAluno(userId: string) {
+    return this.angularFirestore.collection(`eventos`, ref => ref.where('alunos', 'array-contains', userId));
+  }
+
   getIdEvento(evento: string){
     this.DBRef = this.angularFirestore.collection(`eventos`, ref => ref.where ('nome', '==', evento));
     

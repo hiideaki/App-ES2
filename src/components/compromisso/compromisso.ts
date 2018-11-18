@@ -17,6 +17,7 @@ export class CompromissoComponent {
   @Input() item: any;
 
   constructor(public navCtrl: NavController) {
+    console.log(this.item);
   }
 
   pushPage() {

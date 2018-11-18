@@ -17,8 +17,24 @@
   
 
   <div padding>
-    <compromisso *ngFor="let item of lista; last as isLast;" [class.last]="isLast" [item]="item"></compromisso>
-    <div class="vazio" *ngIf="lista.length == 0">
+    <!-- {{listaOrig}} -->
+    <!-- <compromisso *ngFor="let item of listaOrig; last as isLast;" [class.last]="isLast" [item]="item"></compromisso> -->
+
+    <div class="compromisso" *ngFor="let item of listaOrig" (click)="pushPage(item)">
+      <div class="hora">
+        <p>{{ item.hora_inicio }}</p>
+        <p>{{ item.hora_fim }}</p>
+      </div>
+      <div class="materia">
+        <p>{{ item.disciplina }}</p>
+        <p>{{ item.professor }} Teste</p>
+      </div>
+      <div class="frequencia">
+        <p>{{ item.frequencia }} 70.0%</p>
+      </div>
+    </div>
+
+    <div class="vazio" *ngIf="listaOrig.length == 0">
       <span><ion-icon name="checkmark-circle-outline"></ion-icon></span>
       <p>Você não tem compromissos hoje</p>
     </div>
