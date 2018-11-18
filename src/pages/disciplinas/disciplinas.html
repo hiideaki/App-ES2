@@ -13,7 +13,7 @@
   <!-- <card *ngFor="let item of lista; last as isLast" [class.last]="isLast" [item]="item" [icone]="'information-circle'" [adicionar]='false'></card> -->
 
   
-  <div *ngFor="let item of lista" class="card" (click)="pushPage(item)">
+  <div *ngFor="let item of listaOrig" class="card" (click)="pushPage(item)">
     <div class="materia">
       <p *ngIf="item.nome">{{ item.nome }}</p>
       <p *ngIf="item.docente">{{ item.docente }}</p>

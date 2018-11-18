@@ -1,3 +1,4 @@
+import { DBservices } from './../../providers/database/databaseservices';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
@@ -15,11 +16,15 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class ProfAddDisciplinaPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private dbServices: DBservices) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ProfAddDisciplinaPage');
+  }
+
+  addDisciplina() {
+    //this.dbServices.criaDisciplina(id, nome, docente); //olhe o db no para entender o "id"
   }
 
 }

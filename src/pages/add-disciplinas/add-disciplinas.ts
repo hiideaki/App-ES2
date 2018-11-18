@@ -58,7 +58,6 @@ export class AddDisciplinasPage {
       this.listaFiltrada = this.listaOrig;
       loading.dismiss();
     });
-
   }
 
   onInput(e) {

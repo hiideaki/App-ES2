@@ -17,9 +17,10 @@
   <div *ngIf="dados">
     <h4 style="font-weight: bold;">{{ dados.nome }}</h4>
     <p><b>Docente:</b> {{ dados.docente }}</p>
-    <p *ngIf="!novaDisc"><b>Frequência:</b> {{ dados.docente }}</p>
+    <!--<p *ngIf="!novaDisc"><b>Frequência:</b> {{ dados.docente }}</p>-->
   </div>
 
+  <!--
   <br><br>
   <div *ngIf="dados">
     <h4 style="font-weight: bold;">Aulas</h4>
@@ -50,8 +51,8 @@
     </div>
 
   </div>
-
+  -->
   <div class="button-group" *ngIf="novaDisc">
-    <button class="botao">Adicionar disciplina</button>
+    <button class="botao" (click)="addDisciplina()">Adicionar disciplina</button>
   </div>
 </ion-content>
