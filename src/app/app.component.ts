@@ -5,13 +5,14 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
-import { DisciplinasPage } from '../pages/disciplinas/disciplinas';
-import { EventosPage } from '../pages/eventos/eventos';
 import { SettingsPage } from '../pages/settings/settings';
 import { AuthProvider } from '../providers/auth/auth';
 
 import { AngularFireAuth } from '@angular/fire/auth';
-import { ProfAddDisciplinaPage } from '../pages/prof-add-disciplina/prof-add-disciplina';
+import { User } from '../providers/auth/user';
+import { DBservices } from '../providers/database/databaseservices';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { MenuItemsProvider } from '../providers/menu-items/menu-items';
 
 @Component({
   templateUrl: 'app.html'
@@ -21,28 +22,25 @@ export class MyApp {
 
   rootPage: any = LoginPage;
 
-  pages: Array<{title: string, component: any}>;
-
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, private authProvider: AuthProvider, private afAuth: AngularFireAuth) {
+  constructor(public platform: Platform,
+     public statusBar: StatusBar,
+     public splashScreen: SplashScreen, 
+     private authProvider: AuthProvider, 
+     private afAuth: AngularFireAuth, 
+     public user: User,
+     public pages: MenuItemsProvider) {
+       
     const authObserver = afAuth.authState.subscribe((user) => {
       if(user) {
         this.rootPage = HomePage;
       } else {
         this.rootPage = LoginPage;
       }
-      this.pages.push({ title: 'Adicionar disciplina', component: ProfAddDisciplinaPage});
-      console.log(this.pages);
       authObserver.unsubscribe();
     })
    
     this.initializeApp();
 
-    // used for an example of ngFor and navigation
-    this.pages = [
-      { title: 'Home', component: HomePage },
-      { title: 'Disciplinas', component: DisciplinasPage },
-      { title: 'Eventos', component: EventosPage },
-    ];
 
   }
 

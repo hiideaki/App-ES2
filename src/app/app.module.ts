@@ -32,7 +32,8 @@ import { AuthProvider } from '../providers/auth/auth';
 import { DBservices } from '../providers/database/databaseservices';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ProfAddDisciplinaPage } from '../pages/prof-add-disciplina/prof-add-disciplina';
-import { Ocupacao } from '../providers/auth/ocupacao';
+import { User } from '../providers/auth/user';
+import { MenuItemsProvider } from '../providers/menu-items/menu-items';
 
 var firebaseConfig = {
   apiKey: "AIzaSyCMM3RGIGCkGl9GhJn_Y4GFhY__3zjDd80",
@@ -94,9 +95,11 @@ var firebaseConfig = {
     AuthProvider,
     DBservices,
     AngularFireDatabase,
-    Ocupacao,
+    User,
+    MenuItemsProvider,
   ]
 })
+
 export class AppModule {
 
   static injector: Injector;

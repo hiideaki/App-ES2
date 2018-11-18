@@ -1,4 +1,4 @@
-import { Ocupacao } from './../../providers/auth/ocupacao';
+
 import { User } from './../../providers/auth/user';
 import { DBservices } from './../../providers/database/databaseservices';
 import { Component } from '@angular/core';
@@ -26,14 +26,13 @@ export class EventosPage {
   listaFiltrada = [];
   listaOrig = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private dbServices: DBservices, public ocupacao: Ocupacao) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private dbServices: DBservices) {
     // this.adicionarLista(1, '08/11', '10h00', '12h00', 'IA nos tênis', 'Bill Gates', 'Guilhermão');
     // this.adicionarLista(2, '25/12', '00h01', '23h59', 'Natal', 'Papai Noel', 'Osasco');
 
     // this.listaFiltrada = this.lista
 
     // console.log(this.listaFiltrada)
-    console.log(this.ocupacao.ocupacao);
   }
 
   ionViewDidLoad() {

@@ -1,12 +1,11 @@
-import { Ocupacao } from './../../providers/auth/ocupacao';
-import { AngularFirestore } from '@angular/fire/firestore';
-import { Aula } from './../../providers/database/aula';
-import { Observable, Subscription } from 'rxjs';
-import { DBservices } from './../../providers/database/databaseservices';
 import { Component, NgModule } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { CompromissoComponent } from '../../components/compromisso/compromisso';
 import * as firebase from 'firebase/app';
+import { MenuItemsProvider } from '../../providers/menu-items/menu-items';
+import { User } from '../../providers/auth/user';
+import { DBservices } from '../../providers/database/databaseservices';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @NgModule({
   declarations: [
@@ -33,28 +32,24 @@ export class HomePage {
   listaOrig = [];
 
 
-  constructor(public navCtrl: NavController, private dbServices: DBservices, private angularFirestore: AngularFirestore, public ocupacao: Ocupacao) {
+  constructor(public navCtrl: NavController,
+    public pages: MenuItemsProvider, 
+    public user: User,
+    private dbServices: DBservices,
+    private angularFirestore: AngularFirestore) {
+
     this.adicionarLista(1, '10:00', '12:00', 'Engenharia de Software II', 'Wilson Masashiro Yonezawa', '88.4%', 'Sala 7');
     this.adicionarLista(2, '14:00', '16:00', 'Banco de Dados II', 'Aparecido Nilceu Marana', '90.2%', 'Lepec');
     this.adicionarLista(3, '16:00', '18:00', 'Projeto de Trabalho de Conclusão de Curso', 'Simone', '100.0%', 'Lepec');
     this.adicionarLista(4, '19:00', '23:00', 'Ciência de Dados', 'João Pedro Albino', '100.0%', 'Lepec');
-
-    // this.adicionarLista(1, '10:00', '12:00', 'Engenharia de Software II', 'Wilson Masashiro Yonezawa', '88.4%', 'Sala 7');
-    // this.adicionarLista(2, '14:00', '16:00', 'Banco de Dados II', 'Aparecido Nilceu Marana', '100.0%', 'Lepec');
-   
-    // this.adicionarLista(1, '10:00', '12:00', 'Engenharia de Software II', 'Wilson Masashiro Yonezawa', '88.4%', 'Sala 7');
-    // this.adicionarLista(2, '14:00', '16:00', 'Banco de Dados II', 'Aparecido Nilceu Marana', '100.0%', 'Lepec');
-   
-    // this.adicionarLista(1, '10:00', '12:00', 'Engenharia de Software II', 'Wilson Masashiro Yonezawa', '88.4%', 'Sala 7');
-    // this.adicionarLista(2, '14:00', '16:00', 'Banco de Dados II', 'Aparecido Nilceu Marana', '100.0%', 'Lepec');
-   
-    // this.adicionarLista(1, '10:00', '12:00', 'Engenharia de Software II', 'Wilson Masashiro Yonezawa', '88.4%', 'Sala 7');
-    // this.adicionarLista(2, '14:00', '16:00', 'Banco de Dados II', 'Aparecido Nilceu Marana', '100.0%', 'Lepec');
-    // console.log(this.lista)
+        
     this.angularFirestore.doc(`users/${firebase.auth().currentUser.uid}`).ref.get().then(dado => {
-      this.ocupacao.ocupacao = dado.data().ocupacao;
-    })
-  
+      this.user.ocupacao = dado.data().ocupacao;
+      this.pages.setPages(this.user.ocupacao);
+      console.log(this.pages.pages)
+      console.log(this.user.ocupacao)
+    });
+
     console.log(firebase.auth().currentUser.email);
 
   }
