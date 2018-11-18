@@ -16,7 +16,8 @@
 <ion-content padding>
   <div *ngIf="dados">
     <h4 style="font-weight: bold;">{{ dados.nome }}</h4>
-    <p><b>Docente:</b> {{ dados.docente }}</p>
+    <p *ngIf="dados.docente"><b>Docente:</b> {{ dados.docente }}</p>
+    <p *ngIf="dados.palestrante"><b>Palestrante:</b> {{ dados.palestrante }}</p>
     <!--<p *ngIf="!novaDisc"><b>Frequência:</b> {{ dados.docente }}</p>-->
   </div>
 
@@ -54,5 +55,8 @@
   -->
   <div class="button-group" *ngIf="novaDisc">
     <button class="botao" (click)="addDisciplina()">Adicionar disciplina</button>
+  </div>
+  <div class="button-group" *ngIf="evento">
+    <button class="botao" (click)="addEvento()">Adicionar Evento</button>
   </div>
 </ion-content>

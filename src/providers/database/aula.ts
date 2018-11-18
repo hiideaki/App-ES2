@@ -2,5 +2,5 @@ export interface Aula {
     disciplina: string;
     hora_inicio: string;
     hora_fim: string;
-    data: string;
+    dia_semana: string;
 }

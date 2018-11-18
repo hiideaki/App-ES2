@@ -1,3 +1,5 @@
+import { Ocupacao } from './../../providers/auth/ocupacao';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { Aula } from './../../providers/database/aula';
 import { Observable, Subscription } from 'rxjs';
 import { DBservices } from './../../providers/database/databaseservices';
@@ -31,7 +33,7 @@ export class HomePage {
   listaOrig = [];
 
 
-  constructor(public navCtrl: NavController, private dbServices: DBservices) {
+  constructor(public navCtrl: NavController, private dbServices: DBservices, private angularFirestore: AngularFirestore, public ocupacao: Ocupacao) {
     this.adicionarLista(1, '10:00', '12:00', 'Engenharia de Software II', 'Wilson Masashiro Yonezawa', '88.4%', 'Sala 7');
     this.adicionarLista(2, '14:00', '16:00', 'Banco de Dados II', 'Aparecido Nilceu Marana', '90.2%', 'Lepec');
     this.adicionarLista(3, '16:00', '18:00', 'Projeto de Trabalho de Conclusão de Curso', 'Simone', '100.0%', 'Lepec');
@@ -49,6 +51,9 @@ export class HomePage {
     // this.adicionarLista(1, '10:00', '12:00', 'Engenharia de Software II', 'Wilson Masashiro Yonezawa', '88.4%', 'Sala 7');
     // this.adicionarLista(2, '14:00', '16:00', 'Banco de Dados II', 'Aparecido Nilceu Marana', '100.0%', 'Lepec');
     // console.log(this.lista)
+    this.angularFirestore.doc(`users/${firebase.auth().currentUser.uid}`).ref.get().then(dado => {
+      this.ocupacao.ocupacao = dado.data().ocupacao;
+    })
   
     console.log(firebase.auth().currentUser.email);
 

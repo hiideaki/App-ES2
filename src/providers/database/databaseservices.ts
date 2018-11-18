@@ -6,7 +6,8 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { Injectable } from '@angular/core';
 import * as firebase from 'firebase/app';
 import 'rxjs/add/operator/map';
-import { Observable, Subscription, Observer } from 'rxjs';
+import { Observable } from 'rxjs';
+import { Evento } from './evento';
 
 
 @Injectable()
@@ -14,7 +15,8 @@ export class DBservices {
   public DBRef: AngularFirestoreCollection<Disciplina>;
   public docRef: AngularFirestoreDocument;
   public IdDisciplina: Observable<string[]>;
-  public IdAluno: Observable<string>;
+  public IdEvento: Observable<string[]>;
+  public NomeAluno: Observable<string>;
 
   constructor(public angularFirestore: AngularFirestore) {
   }
@@ -29,11 +31,11 @@ export class DBservices {
 
   getAulas(userId: string): AngularFirestoreCollection<Aula>{
     return this.angularFirestore.collection(`aula`, ref => ref.where('alunos', 'array-contains', userId));
-}
+  }
 
-  // getDetail(nome: string): firebase.firestore.DocumentReference {
-  //   return this.DBRef.doc(nome); 
-  // }
+  getEventosTudo(): AngularFirestoreCollection <Evento> {
+    return this.angularFirestore.collection(`eventos`);
+  }
 
   getIdDisciplina(disciplina: string){
     this.DBRef = this.angularFirestore.collection(`disciplinas`, ref => ref.where ('nome', '==', disciplina));
@@ -44,17 +46,11 @@ export class DBservices {
         return id;
       })
     });
-    // this.query.subscribe(data => {
-    //   data.map(dado => {
-    //     this.id = dado;
-    //     return this.id;
-    //   })
-    // })
   }
   
-  getIdAluno(userId: string){
+  getNomeAluno(userId: string){
     this.docRef = this.angularFirestore.doc(`users/${userId}`);
-    this.IdAluno = this.docRef.snapshotChanges().map(dados => {
+    this.NomeAluno = this.docRef.snapshotChanges().map(dados => {
       const data = dados.payload.data() as User;
       return data.nome;
     })
@@ -62,9 +58,9 @@ export class DBservices {
 
   setAlunoDisciplina(userId: string, disciplina: string){
     this.getIdDisciplina(disciplina);
-    this.getIdAluno(userId);
+    this.getNomeAluno(userId);
     
-    this.IdAluno.subscribe(nomealuno => {
+    this.NomeAluno.subscribe(nomealuno => {
       this.IdDisciplina.subscribe(data => {
         data.map(disciplinaId => {
           this.addAluno(userId, disciplinaId);
@@ -95,5 +91,31 @@ export class DBservices {
       nome: nome,
       docente: docente
     })
+  }
+
+  setAlunoEvento(userId: string, evento: string) {
+    this.getIdEvento(evento);
+    this.getNomeAluno(userId);
+    
+    this.NomeAluno.subscribe(nomealuno => {
+      this.IdEvento.subscribe(data => {
+        data.map(eventoId => {
+          firebase.firestore().doc(`eventos/${eventoId}`).update({
+            alunos: firebase.firestore.FieldValue.arrayUnion(userId)
+          });
+        })
+      })
+    })
+  }
+
+  getIdEvento(evento: string){
+    this.DBRef = this.angularFirestore.collection(`eventos`, ref => ref.where ('nome', '==', evento));
+    
+    this.IdEvento = this.DBRef.snapshotChanges().map(evento => {
+      return evento.map(a => {
+        const id = a.payload.doc.id;
+        return id;
+      })
+    });
   }
 }

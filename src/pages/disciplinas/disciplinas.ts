@@ -65,7 +65,7 @@ export class DisciplinasPage {
 
   pushPage(dados: Disciplina) {
     console.log(dados);
-    this.navCtrl.push('InfoCardPage', { dados: dados, novaDisc: false });
+    this.navCtrl.push('InfoCardPage', { dados: dados, novaDisc: false, evento: false });
 
   }
 

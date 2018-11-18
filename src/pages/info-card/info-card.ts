@@ -19,14 +19,16 @@ import * as firebase from 'firebase/app';
 })
 export class InfoCardPage {
 
-  dados: Disciplina;
+  dados: any;
   novaDisc: boolean;
+  evento: boolean;
   userId: string;
   user: User;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private dbservices: DBservices) {
     this.dados = this.navParams.get('dados');
     this.novaDisc = this.navParams.get('novaDisc');
+    this.evento = this.navParams.get('evento');
   }
 
   ionViewDidLoad() {
@@ -42,6 +44,13 @@ export class InfoCardPage {
     console.log(this.userId);
     this.userId = firebase.auth().currentUser.uid;
     this.dbservices.setAlunoDisciplina(this.userId, this.dados.nome);
+  }
+
+  addEvento() {
+    console.log(this.dados.nome);
+    console.log(this.userId);
+    this.userId = firebase.auth().currentUser.uid;
+    this.dbservices.setAlunoEvento(this.userId, this.dados.nome);
   }
 
 }

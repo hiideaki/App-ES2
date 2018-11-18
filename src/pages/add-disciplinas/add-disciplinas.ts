@@ -49,14 +49,15 @@ export class AddDisciplinasPage {
       spinner: 'crescent',
       content: 'Carregando'
     });
-    loading.present();
-    this.lista = this.dbServices.getListaTodasDisciplinas().valueChanges();
-    this.myInput = '';
+    loading.present().then(() => {
+      this.lista = this.dbServices.getListaTodasDisciplinas().valueChanges();
+      this.myInput = '';
 
-    this.lista.subscribe((items : any[]) => {
-      this.listaOrig = items;
-      this.listaFiltrada = this.listaOrig;
-      loading.dismiss();
+      this.lista.subscribe((items : any[]) => {
+        this.listaOrig = items;
+        this.listaFiltrada = this.listaOrig;
+        loading.dismiss();
+      });
     });
   }
 
@@ -71,7 +72,7 @@ export class AddDisciplinasPage {
 
   pushPage(dados: Disciplina) {
     console.log(dados);
-    this.navCtrl.push('InfoCardPage', { dados: dados, novaDisc: true });
+    this.navCtrl.push('InfoCardPage', { dados: dados, novaDisc: true, evento: false });
 
   }
 
