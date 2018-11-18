@@ -38,6 +38,8 @@ export class InfoCardPage {
   }
 
   addDisciplina(){
+    console.log(this.dados.nome);
+    console.log(this.userId);
     this.userId = firebase.auth().currentUser.uid;
     this.dbservices.setAlunoDisciplina(this.userId, this.dados.nome);
   }

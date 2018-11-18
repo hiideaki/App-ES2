@@ -27,8 +27,8 @@ export class HomePage {
   data = this.dia + '/' + this.mes + ' - ' + this.diaSemana; 
   
   //lista: Observable<any[]>;
-  lista: [];
-  listaOrig: any[];
+  lista = [];
+  listaOrig = [];
 
 
   constructor(public navCtrl: NavController, private dbServices: DBservices) {
