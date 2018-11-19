@@ -2,7 +2,7 @@ import { Disciplina } from './../../providers/database/disciplina';
 import { DBservices } from './../../providers/database/databaseservices';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, ToastController } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 import * as firebase from 'firebase/app';
 
@@ -30,7 +30,13 @@ export class AulaPage {
   data = new Date();
   datastring: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public geolocation: Geolocation, private angularFirestore: AngularFirestore, private dbServices: DBservices) {
+  constructor(public navCtrl: NavController,
+     public navParams: NavParams,
+     public geolocation: Geolocation,
+     private angularFirestore: AngularFirestore,
+     private dbServices: DBservices,
+     private loadingCtrl: LoadingController,
+     private toastCtrl: ToastController) {
   }
 
 
@@ -43,41 +49,54 @@ export class AulaPage {
       this.angularFirestore.doc(`disciplinas/${this.dados.disciplina}`).ref.get().then(data => {
         this.dadosDisciplina = data.data().nome;
       })
-    }
-    else {
+    } else {
       this.data.setTime(this.dados.comeco.seconds * 1000);
     }
     this.datastring = this.data.getDate() + '/' + (this.data.getMonth() + 1) + '/' + this.data.getFullYear();
   }
  
   loadMap(){
-    // Para pegar as coordenadas do local use
-    // this.dados.local._lat e this.dados.local._long
-    this.geolocation.getCurrentPosition().then((position) => {
+    let latLng = new google.maps.LatLng(this.dados.local._lat, this.dados.local._long);
 
-      let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+    let mapOptions = {
+      center: latLng,
+      zoom: 13,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    }
 
-      let mapOptions = {
-        center: latLng,
-        zoom: 13,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-      }
-  
-      this.mapa = new google.maps.Map(this.elementoMapa.nativeElement, mapOptions);
+    this.mapa = new google.maps.Map(this.elementoMapa.nativeElement, mapOptions);
 
-      this.alvo = new google.maps.Marker({
-        position: {lat: this.dados.local._lat, lng: this.dados.local._long},
-        map: this.mapa,
-        title: 'Aula'
-
-      });
-    
-    }, (err) => {
-      console.log(err);
+    this.alvo = new google.maps.Marker({
+      position: {lat: this.dados.local._lat, lng: this.dados.local._long},
+      map: this.mapa,
+      title: 'Aula'
     });
   }
 
   addPresenca(){
+    let toast = this.toastCtrl.create({
+      duration: 3000,
+      position: 'bottom'
+    })
+    let loading = this.loadingCtrl.create({
+      spinner: 'crescent',
+      content: 'Carregando'
+    })
+    loading.present();
+
+    let auxData = new Date();
+    let agora = auxData.getHours();
+    let ini = Number(this.dados.hora_inicio.substring(0, this.dados.hora_inicio.indexOf(':')));
+    let fim = Number(this.dados.hora_fim.substring(0, this.dados.hora_fim.indexOf(':')));
+
+    console.log(ini, fim, agora)
+    if(agora < ini || agora >= fim) {
+      loading.dismiss();
+      toast.setMessage('Fora do período da aula');
+      toast.present();
+      return
+    }
+
     this.geolocation.getCurrentPosition().then((position) => {
       console.log(position.coords.latitude, position.coords.longitude, this.dados.local._lat, this.dados.local._long)
 
@@ -89,10 +108,12 @@ export class AulaPage {
         } else {
           this.dbServices.addPresencaEvento(firebase.auth().currentUser.uid, this.dados.nome);
         }
-        console.log("Presença cadastrada");
+        toast.setMessage('Presença cadastrada!');
       } else {
-        console.log("Você está muito longe!");
+        toast.setMessage('Você está muito longe da sala de aula! Distância: ' + Math.round(distancia * 100000)/100 + 'm');
       }
+      loading.dismiss();
+      toast.present();
     })
   }
 

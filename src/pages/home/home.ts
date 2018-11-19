@@ -74,12 +74,19 @@ export class HomePage {
     //Meh talvez funcione
     this.lista = this.dbServices.getAulas(firebase.auth().currentUser.uid).valueChanges();
     this.lista.subscribe((items: any) => {
-      this.listaOrig = items;
+      this.listaOrig = [];
+      for(var i = 0; i < items.length; i++) {
+        if(items[i].dia_semana == this.diaSemana) {
+          this.listaOrig.push(items[i])
+        }
+      }
+      // this.listaOrig = items;
       this.lista = this.dbServices.getEventosAluno(firebase.auth().currentUser.uid).valueChanges();
       this.lista.subscribe((items: any) => {
         items.forEach(item => {
           this.listaOrig.push(item);
         })
+        console.log(this.listaOrig);
       })
     })
   }

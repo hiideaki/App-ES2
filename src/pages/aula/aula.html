@@ -25,11 +25,11 @@
       <p *ngIf="dados.disciplina"><b>Disciplina:</b> {{ dadosDisciplina }}</p>
       <p *ngIf="dados.docente"><b>Docente:</b> {{ dados.docente }}</p>
       <p *ngIf="dados.palestrante"><b>Palestrante:</b> {{ dados.palestrante }}</p>
-      <p *ngIf='dados.local'><b>Local: </b> {{ dados.local._lat }}, {{ dados.local._long }}</p>
-      <b>Data: </b> {{ datastring }} <br>
-      <b>Inicio: </b> {{ dados.hora_inicio }} <br>
+      <p *ngIf="dados.local"><b>Local: </b> {{ dados.nome_local }}</p>
+      <p *ngIf="!this.dados.disciplina"><b>Data: </b> {{ datastring }}</p>
+      <p *ngIf="dados.hora_inicio"><b>Inicio: </b> {{ dados.hora_inicio }}</p>
       <p *ngIf="dados.hora_fim"><b>Término: </b> {{ dados.hora_fim }} </p>
-      <b>Frequência: </b> {{ dados.frequencia }} 000<br>
+      <p *ngIf="dados.frequencia"><b>Frequência: </b> {{ dados.frequencia }} 000</p>
   </div>
 
   <div class="button-group">
