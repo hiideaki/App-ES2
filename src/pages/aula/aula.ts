@@ -1,3 +1,4 @@
+import { Disciplina } from './../../providers/database/disciplina';
 import { DBservices } from './../../providers/database/databaseservices';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Component, ViewChild, ElementRef } from '@angular/core';
@@ -68,7 +69,10 @@ export class AulaPage {
   }
 
   addPresenca(){
-    this.dbServices.addPresenca(firebase.auth().currentUser.uid, this.data, this.dados.disciplina);
+    if(this.dados.Disciplina)
+      this.dbServices.addPresencaAula(firebase.auth().currentUser.uid, this.data, this.dados.disciplina);
+    else
+      this.dbServices.addPresencaEvento(firebase.auth().currentUser.uid, this.dados.nome);
   }
 
 }
