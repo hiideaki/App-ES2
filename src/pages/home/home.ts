@@ -80,8 +80,6 @@ export class HomePage {
         items.forEach(item => {
           this.listaOrig.push(item);
         })
-        console.log(this.listaOrig);
-        console.log(this.listaOrig[0].disciplina);
       })
     })
   }

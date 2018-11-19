@@ -23,6 +23,7 @@ export class AulaPage {
 
   @ViewChild('mapa') elementoMapa: ElementRef;
   mapa: any;
+  alvo: any;
   dados: any;
   dadosDisciplina: any;
   data = new Date();
@@ -57,18 +58,55 @@ export class AulaPage {
 
       let mapOptions = {
         center: latLng,
-        zoom: 15,
+        zoom: 13,
         mapTypeId: google.maps.MapTypeId.ROADMAP
       }
   
       this.mapa = new google.maps.Map(this.elementoMapa.nativeElement, mapOptions);
+
+      this.alvo = new google.maps.Marker({
+        position: {lat: this.dados.local._lat, lng: this.dados.local._long},
+        map: this.mapa,
+        title: 'Aula'
+
+      });
+    
     }, (err) => {
       console.log(err);
     });
   }
 
   addPresenca(){
-    this.dbServices.addPresenca(firebase.auth().currentUser.uid, this.data, this.dados.disciplina);
+    this.geolocation.getCurrentPosition().then((position) => {
+      console.log(position.coords.latitude, position.coords.longitude, this.dados.local._lat, this.dados.local._long)
+
+      let distancia = this.getDistanceFromLatLonInKm(position.coords.latitude, position.coords.longitude, this.dados.local._lat, this.dados.local._long);
+      console.log(distancia);
+      if(distancia <= 0.3) {
+        this.dbServices.addPresenca(firebase.auth().currentUser.uid, this.data, this.dados.disciplina);
+        console.log("Presença cadastrada");
+      } else {
+        console.log("Você está muito longe!");
+      }
+    })
+  }
+
+  getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
+    var R = 6371; // Radius of the earth in km
+    var dLat = this.deg2rad(lat2-lat1);  // deg2rad below
+    var dLon = this.deg2rad(lon2-lon1); 
+    var a = 
+      Math.sin(dLat/2) * Math.sin(dLat/2) +
+      Math.cos(this.deg2rad(lat1)) * Math.cos(this.deg2rad(lat2)) * 
+      Math.sin(dLon/2) * Math.sin(dLon/2)
+      ; 
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+    var d = R * c; // Distance in km
+    return d;
+  }
+  
+  deg2rad(deg) {
+    return deg * (Math.PI/180)
   }
 
 }
