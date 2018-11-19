@@ -1,3 +1,49 @@
 page-prof-add-disciplina {
+    ion-card {
+        width: 90% !important;
+        margin: 0 5% !important;
+        padding: 0;
+    }
+    
+    .aulas {
+        width: 100%;
+        position: relative;
+        display: flex;
+        font-size: 15px;
+        padding: 10px 0;
+        border-bottom: 1px solid $primary;
+    
+        p {
+            margin: 5px 0 !important;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+        
+        .hora {
+            width: 15%;
+        }
+
+        .localData {
+            width: 70%;
+        }
+
+        .icon {
+            width: 15%;
+            font-size: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .localData > p:first-of-type {
+            font-weight: bold;
+        }
+        
+        :last-of-type {
+            border: none !important;
+        }
+    }
 
 }
+

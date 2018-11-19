@@ -69,7 +69,7 @@ ion-menu ion-content{
     width: 70%;
 }
 
-form {
+form, ion-card {
     width: 100%;
     padding: 0 15%;
     
@@ -96,6 +96,12 @@ form {
         color: #333;
         margin: 10px 0;
         outline: none;
+    }
+
+    input[disabled] {
+        color: #000 !important;
+        background: none !important;
+        opacity: .3 !important;
     }
     
 

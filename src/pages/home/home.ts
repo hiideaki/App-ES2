@@ -46,7 +46,9 @@ export class HomePage {
     // this.adicionarLista(4, '19:00', '23:00', 'Ciência de Dados', 'João Pedro Albino', '100.0%', 'Lepec');
         
     this.angularFirestore.doc(`users/${firebase.auth().currentUser.uid}`).ref.get().then(dado => {
+      this.user.cpf = dado.data().cpf;
       this.user.ocupacao = dado.data().ocupacao;
+      this.user.nome = dado.data().nome;
       this.pages.setPages(this.user.ocupacao);
     });
 

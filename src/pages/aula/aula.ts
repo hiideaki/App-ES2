@@ -85,12 +85,15 @@ export class AulaPage {
     loading.present();
 
     let auxData = new Date();
-    let agora = auxData.getHours();
+    let agoraHora = auxData.getHours();
+    let agoraMin = auxData.getMinutes();
     let ini = Number(this.dados.hora_inicio.substring(0, this.dados.hora_inicio.indexOf(':')));
     let fim = Number(this.dados.hora_fim.substring(0, this.dados.hora_fim.indexOf(':')));
+    let iniMin = Number(this.dados.hora_inicio.substring(this.dados.hora_inicio.indexOf(':') + 1, this.dados.hora_inicio.length));
+    let fimMin = Number(this.dados.hora_fim.substring(this.dados.hora_fim.indexOf(':') + 1, this.dados.hora_fim.length));
 
-    console.log(ini, fim, agora)
-    if(agora < ini || agora >= fim) {
+    console.log(ini, fim, agoraHora)
+    if(agoraHora < ini || agoraHora > fim || (agoraHora == ini && agoraMin < iniMin) || (agoraHora == fim && agoraMin > fimMin)) {
       loading.dismiss();
       toast.setMessage('Fora do período da aula');
       toast.present();

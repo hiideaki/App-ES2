@@ -1,4 +1,4 @@
-export interface Disciplina {
+export class Disciplina {
     nome: string;
     docente: string;
 }
