@@ -30,8 +30,9 @@ export class HomePage {
   data = this.dia + '/' + this.mes + ' - ' + this.diaSemana; 
   
   lista: Observable<any[]>;
-  // lista = [];
   listaOrig = [];
+  listaOrig1 = [];
+  listaOrig2 = [];
 
 
   constructor(public navCtrl: NavController,
@@ -40,11 +41,6 @@ export class HomePage {
     private dbServices: DBservices,
     private angularFirestore: AngularFirestore) {
 
-    // this.adicionarLista(1, '10:00', '12:00', 'Engenharia de Software II', 'Wilson Masashiro Yonezawa', '88.4%', 'Sala 7');
-    // this.adicionarLista(2, '14:00', '16:00', 'Banco de Dados II', 'Aparecido Nilceu Marana', '90.2%', 'Lepec');
-    // this.adicionarLista(3, '16:00', '18:00', 'Projeto de Trabalho de Conclusão de Curso', 'Simone', '100.0%', 'Lepec');
-    // this.adicionarLista(4, '19:00', '23:00', 'Ciência de Dados', 'João Pedro Albino', '100.0%', 'Lepec');
-        
     this.angularFirestore.doc(`users/${firebase.auth().currentUser.uid}`).ref.get().then(dado => {
       this.user.cpf = dado.data().cpf;
       this.user.ocupacao = dado.data().ocupacao;
@@ -56,39 +52,54 @@ export class HomePage {
 
   }
 
-  // adicionarLista(vId, vHoraIni, vHoraFim, vMateria, vProfessor, vFrequencia, vLocal) {
-  //   this.lista.push({
-  //     id: vId,
-  //     horaIni: vHoraIni,
-  //     horaFim: vHoraFim,
-  //     materia: vMateria,
-  //     professor: vProfessor,
-  //     frequencia: vFrequencia,
-  //     local: vLocal
-  //   });
-  // }
-
   pushPage(item) {
     this.navCtrl.push(AulaPage, item);
   }
 
   ionViewDidLoad(){
-    //Meh talvez funcione
+    this.auxData
+    let hoje = this.dia + '/' + this.auxData.getMonth() + '/' + this.auxData.getFullYear();
+
     this.lista = this.dbServices.getAulas(firebase.auth().currentUser.uid).valueChanges();
     this.lista.subscribe((items: any) => {
-      this.listaOrig = [];
+      this.listaOrig1 = [];
       for(var i = 0; i < items.length; i++) {
         if(items[i].dia_semana == this.diaSemana) {
-          this.listaOrig.push(items[i])
+          this.listaOrig1.push(items[i])
         }
       }
       // this.listaOrig = items;
       this.lista = this.dbServices.getEventosAluno(firebase.auth().currentUser.uid).valueChanges();
       this.lista.subscribe((items: any) => {
+        this.listaOrig2 = [];
         items.forEach(item => {
-          this.listaOrig.push(item);
+          console.log(new Date(item.comeco.seconds * 1000))
+          let evento = new Date(item.comeco.seconds * 1000)
+          let dataEvento = evento.getDate() + '/' + evento.getMonth() +  '/' + evento.getFullYear()
+          if(dataEvento == hoje)
+            this.listaOrig2.push(item);
         })
-        console.log(this.listaOrig);
+        this.listaOrig = this.listaOrig1.concat(this.listaOrig2).sort((a, b) => Number(a.hora_inicio.substring(0, a.hora_inicio.indexOf(':'))) < Number(b.hora_inicio.substring(0, b.hora_inicio.indexOf(':'))) ? -1 : Number(a.hora_inicio.substring(0, a.hora_inicio.indexOf(':'))) > Number(b.hora_inicio.substring(0, b.hora_inicio.indexOf(':'))) ? 1 : 0)
+        for(let item of this.listaOrig) {
+          console.log(item)
+          if(item.alunos_presentes) {
+            console.log('entrou')
+            let ja = false;
+            for(let cod of item.alunos_presentes) {
+              console.log(cod, firebase.auth().currentUser.uid)
+              if(cod == firebase.auth().currentUser.uid) {
+                ja = true;
+                item.presencaOk = true;
+                break;
+              }
+            }
+            if(!ja) {
+              item.presencaOk = null;
+            }
+          } else {
+            item.presencaOk = null;
+          }
+        }
       })
     })
   }

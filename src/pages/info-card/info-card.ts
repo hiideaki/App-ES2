@@ -2,7 +2,7 @@ import { User } from './../../providers/auth/user';
 import { DBservices } from './../../providers/database/databaseservices';
 import { Disciplina } from './../../providers/database/disciplina';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, ToastController } from 'ionic-angular';
 import * as firebase from 'firebase/app';
 
 /**
@@ -25,32 +25,43 @@ export class InfoCardPage {
   userId: string;
   user: User;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private dbservices: DBservices) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private dbservices: DBservices, private loadingCtrl: LoadingController, private toastCtrl: ToastController) {
     this.dados = this.navParams.get('dados');
     this.novaDisc = this.navParams.get('novaDisc');
     this.evento = this.navParams.get('evento');
   }
 
   ionViewDidLoad() {
-    // console.log(this.navParams.data)
-    // //this.dados = this.navParams.data[0];
-    // console.log(this.dados);
-    // //this.novaDisc = this.navParams.data[1];
-    // console.log(this.novaDisc)
+    
   }
 
   addDisciplina(){
+    let toast = this.toastCtrl.create({
+      duration: 3000,
+      position: 'bottom',
+      message: 'Disciplina adicionada'
+    })
     console.log(this.dados.nome);
     console.log(this.userId);
     this.userId = firebase.auth().currentUser.uid;
     this.dbservices.setAlunoDisciplina(this.userId, this.dados.nome);
+    toast.present();
+    this.navCtrl.pop();
+
   }
 
   addEvento() {
+    let toast = this.toastCtrl.create({
+      duration: 3000,
+      position: 'bottom',
+      message: 'Evento adicionado'
+    })
     console.log(this.dados.nome);
     console.log(this.userId);
     this.userId = firebase.auth().currentUser.uid;
     this.dbservices.setAlunoEvento(this.userId, this.dados.nome);
+    toast.present();
+    this.navCtrl.pop();
   }
 
 }

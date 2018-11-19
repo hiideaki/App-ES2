@@ -7,7 +7,10 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Aula</ion-title>
+    <ion-title *ngIf="dados">
+      <span *ngIf="dados.palestrante">Palestra</span>
+      <span *ngIf="dados.docente">Aula</span>
+    </ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -22,18 +25,17 @@
       <!-- <b>Disciplina: </b> {{ dadosDisciplina || dados.nome}} <br>
       <b>Professor: </b> {{ dados.docente || dados.palestrante}} <br> -->
       <p *ngIf="dados.nome"><b>Palestra:</b> {{ dados.nome }}</p>
-      <p *ngIf="dados.disciplina"><b>Disciplina:</b> {{ dadosDisciplina }}</p>
+      <p *ngIf="dados.disciplina"><b>Disciplina:</b> {{ dados.disciplina }}</p>
       <p *ngIf="dados.docente"><b>Docente:</b> {{ dados.docente }}</p>
       <p *ngIf="dados.palestrante"><b>Palestrante:</b> {{ dados.palestrante }}</p>
       <p *ngIf="dados.local"><b>Local: </b> {{ dados.nome_local }}</p>
-      <p *ngIf="!this.dados.disciplina"><b>Data: </b> {{ datastring }}</p>
       <p *ngIf="dados.hora_inicio"><b>Inicio: </b> {{ dados.hora_inicio }}</p>
       <p *ngIf="dados.hora_fim"><b>Término: </b> {{ dados.hora_fim }} </p>
       <p *ngIf="dados.frequencia"><b>Frequência: </b> {{ dados.frequencia }} 000</p>
   </div>
 
-  <div class="button-group">
-    <button type="button" class="botao" (click)="addPresenca()">Cadastrar presença</button>
+  <div class="button-group" *ngIf="dados">
+    <button type="button" class="botao" (click)="addPresenca()" [disabled]="dados.presencaOk">Cadastrar presença</button>
   </div>
   
 </ion-content>

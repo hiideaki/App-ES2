@@ -24,6 +24,24 @@
       <label>Docente</label><br>
       <input type="text" name="docente" [(ngModel)]="user.nome" disabled/><br>
     </div>
+
+    
+    <!-- <div class="form-field">
+      <label>Data de início</label><br>
+      <ion-item>
+        <ion-label>Início</ion-label>
+        <ion-datetime pickerFormat="DD/MM/YYYY" displayFormat="DD/MM/YYYY" [min]="hojeString" [max]="dataFim" name="dataIni" [(ngModel)]="dataIni"></ion-datetime>
+      </ion-item>
+    </div>
+    
+    <div class="form-field">
+      <label>Data de término</label><br>
+      <ion-item>
+        <ion-label>Fim</ion-label>
+        <ion-datetime pickerFormat="DD/MM/YYYY" displayFormat="DD/MM/YYYY" [min]="dataIni" name="dataFim" [(ngModel)]="dataFim"></ion-datetime>
+      </ion-item>
+    </div> -->
+
     <h4 style="font-weight: bold;">Aulas</h4>
   </form>
   
@@ -64,7 +82,7 @@
         <label>Hora de início</label><br>
         <ion-item>
           <ion-label>Início</ion-label>
-          <ion-datetime pickerFormat="HH:mm" name="horaIni" [(ngModel)]="aula.hora_inicio"></ion-datetime>
+          <ion-datetime pickerFormat="HH:mm" displayFormat="HH:mm" name="horaIni" [(ngModel)]="aula.hora_inicio"></ion-datetime>
         </ion-item>
       </div>
 
@@ -72,7 +90,7 @@
         <label>Hora de término</label><br>
         <ion-item>
             <ion-label>Fim</ion-label>
-          <ion-datetime pickerFormat="HH:mm" name="horaFim" [(ngModel)]="aula.hora_fim"></ion-datetime>
+          <ion-datetime pickerFormat="HH:mm" displayFormat="HH:mm" name="horaFim" [(ngModel)]="aula.hora_fim"></ion-datetime>
         </ion-item>
       </div>
 

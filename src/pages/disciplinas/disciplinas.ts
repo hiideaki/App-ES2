@@ -28,20 +28,9 @@ export class DisciplinasPage {
   
 
   constructor(public user: User, public navCtrl: NavController, public navParams: NavParams, private dbServices: DBservices, private afDB: AngularFireDatabase) {
-    // this.adicionarLista(1, 'Engenharia de Software II', 'Wilson Masashiro Yonezawa');
-    // this.adicionarLista(2, 'Banco de Dados II', 'Aparecido Nilceu Marana');
 
-
-    console.log(this.user);
   }
 
-  // adicionarLista(vId, vMateria, vProfessor) {
-  //   this.lista.push({
-  //     id: vId,
-  //     nome: vMateria,
-  //     docente: vProfessor,
-  //   });
-  // }
 
   ionViewDidLoad() {
     this.lista = this.dbServices.getDisciplinasAluno(firebase.auth().currentUser.uid).valueChanges();

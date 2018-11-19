@@ -41,7 +41,10 @@ export class AulaPage {
 
 
   ionViewDidLoad(){
-    console.log(this.navParams.data)
+    let toast = this.toastCtrl.create({
+      duration: 3000,
+      position: 'bottom'
+    })
     this.dados = this.navParams.data;
     this.loadMap();
     if (this.dados.disciplina){
@@ -53,6 +56,11 @@ export class AulaPage {
       this.data.setTime(this.dados.comeco.seconds * 1000);
     }
     this.datastring = this.data.getDate() + '/' + (this.data.getMonth() + 1) + '/' + this.data.getFullYear();
+    
+    if(this.dados.presencaOk) {
+      toast.setMessage("Sua presença já foi computada");
+      toast.present();
+    }
   }
  
   loadMap(){
@@ -95,7 +103,7 @@ export class AulaPage {
     console.log(ini, fim, agoraHora)
     if(agoraHora < ini || agoraHora > fim || (agoraHora == ini && agoraMin < iniMin) || (agoraHora == fim && agoraMin > fimMin)) {
       loading.dismiss();
-      toast.setMessage('Fora do período da aula');
+      toast.setMessage('Fora do período');
       toast.present();
       return
     }
@@ -113,7 +121,7 @@ export class AulaPage {
         }
         toast.setMessage('Presença cadastrada!');
       } else {
-        toast.setMessage('Você está muito longe da sala de aula! Distância: ' + Math.round(distancia * 100000)/100 + 'm');
+        toast.setMessage('Você está muito longe da sala! Distância: ' + Math.round(distancia * 100000)/100 + 'm');
       }
       loading.dismiss();
       toast.present();

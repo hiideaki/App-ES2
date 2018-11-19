@@ -47,6 +47,7 @@ page-home {
         display: flex;
         font-size: 15px;
         padding: 10px 0;
+        border-bottom: 1px solid #fff;
 
         p {
             margin: 5px 0 !important;
@@ -68,14 +69,19 @@ page-home {
             font-weight: bolder;
         }
 
+
         .frequencia {
-            width: 15%;
-            padding: 0 !important;
+            width: 20%;
+            font-size: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        
         }
     }
 
 
-    .last .compromisso {
+    .compromisso:last-of-type {
         border: none;
     }
 

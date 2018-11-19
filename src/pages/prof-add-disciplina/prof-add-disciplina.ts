@@ -6,6 +6,7 @@ import { User } from '../../providers/auth/user';
 import { Aula } from '../../providers/database/aula';
 import { NgForm } from '@angular/forms';
 import * as firebase from 'firebase/app';
+import { HomePage } from '../home/home';
 
 /**
  * Generated class for the ProfAddDisciplinaPage page.
@@ -29,6 +30,10 @@ export class ProfAddDisciplinaPage {
   aulas = [];
   local: any;
 
+  hojeString = new Date().toISOString();
+  dataIni = this.hojeString;
+  dataFim: any;
+
   locals = [{nome_local: "Sala 5", lat: -22.350737, long: -49.03219},
             {nome_local: "Lepec", lat: -22.351284, long: -49.033726}]
   
@@ -43,7 +48,7 @@ export class ProfAddDisciplinaPage {
   };
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private dbServices: DBservices, private user: User, private toastCtrl: ToastController) {
-
+    
   }
 
   ionViewDidLoad() {
@@ -104,7 +109,6 @@ export class ProfAddDisciplinaPage {
       lat: this.local.lat,
       data: data
     });
-    console.log(this.disciplina);
   }
 
   remove(i) {
@@ -117,7 +121,9 @@ export class ProfAddDisciplinaPage {
       position: 'bottom'
     })
     if(this.form.form.valid && this.aulas.length > 0) {
-      console.log('ok')
+      toast.setMessage("Disciplina criada com sucesso!");
+      toast.present();
+      this.navCtrl.setRoot(HomePage)
     } else {
       if(this.aulas.length == 0) {
         toast.setMessage('Insira pelo menos uma aula');

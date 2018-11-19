@@ -17,7 +17,8 @@ export class AuthProvider {
       newUserCredential => {
         firebase.firestore().doc(`/users/${newUserCredential.user.uid}`).set({
           nome: user.nome,
-          cpf: user.cpf
+          cpf: user.cpf,
+          ocupacao: "aluno"
         })
       }).catch(error => {
         console.error(error);

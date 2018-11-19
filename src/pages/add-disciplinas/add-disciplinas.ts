@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Disciplina } from './../../providers/database/disciplina';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import * as firebase from 'firebase/app';
 
 
 /**
@@ -21,27 +22,14 @@ import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-an
 
 export class AddDisciplinasPage {
   myInput: String;
-  listaFiltrada: any[];
-  listaOrig: any[];
+  listaFiltrada = [];
+  listaOrig = [];
   lista: Observable<any[]>;
 
+  listaMinhasDisciplinas: Observable<any[]>
+
   constructor(public navCtrl: NavController, public navParams: NavParams, private loadingCtrl: LoadingController, private dbServices: DBservices, private afDB: AngularFireDatabase) {
-    /*this.adicionarLista(1, '10:00', '12:00', 'Engenharia de Software II', 'Wilson Masashiro Yonezawa', '88.4%', 'Sala 7');
-    this.adicionarLista(2, '14:00', '16:00', 'Banco de Dados II', 'Aparecido Nilceu Marana', '100.0%', 'Lepec');
-   
-    this.adicionarLista(1, '10:00', '12:00', 'Engenharia de Software II', 'Wilson Masashiro Yonezawa', '88.4%', 'Sala 7');
-    this.adicionarLista(2, '14:00', '16:00', 'Banco de Dados II', 'Aparecido Nilceu Marana', '100.0%', 'Lepec');
-   
-    this.adicionarLista(1, '10:00', '12:00', 'Engenharia de Software II', 'Wilson Masashiro Yonezawa', '88.4%', 'Sala 7');
-    this.adicionarLista(2, '14:00', '16:00', 'Banco de Dados II', 'Aparecido Nilceu Marana', '100.0%', 'Lepec');
-   
-    this.adicionarLista(1, '10:00', '12:00', 'Engenharia de Software II', 'Wilson Masashiro Yonezawa', '88.4%', 'Sala 7');
-    this.adicionarLista(2, '14:00', '16:00', 'Banco de Dados II', 'Aparecido Nilceu Marana', '100.0%', 'Lepec');
-   
-    this.adicionarLista(1, '10:00', '12:00', 'Engenharia de Software II', 'Wilson Masashiro Yonezawa', '88.4%', 'Sala 7');
-    this.adicionarLista(2, '14:00', '16:00', 'Banco de Dados II', 'Aparecido Nilceu Marana', '100.0%', 'Lepec');
-    console.log(this.lista);
-    this.listaFiltrada = this.lista;*/
+
   }
 
   ionViewDidLoad(){
@@ -53,21 +41,36 @@ export class AddDisciplinasPage {
       this.lista = this.dbServices.getListaTodasDisciplinas().valueChanges();
       this.myInput = '';
 
-      this.lista.subscribe((items : any[]) => {
-        this.listaOrig = items;
-        this.listaFiltrada = this.listaOrig;
+      this.lista.subscribe((items1 : any[]) => {
+        this.lista = this.dbServices.getDisciplinasAluno(firebase.auth().currentUser.uid).valueChanges();
+        this.lista.subscribe((items2 : any[]) => {
+          this.listaOrig = [];
+          console.log(items1, items2)
+          for(let item1 of items1) {
+            let ja = false;
+            for(let item2 of items2) {
+              if(item1.docente == item2.docente && item1.nome == item2.nome) {
+                ja = true;
+                break;
+              }
+            }
+            if(!ja) {
+              this.listaOrig.push(item1);
+            }
+          }
+          this.listaFiltrada = this.listaOrig;
+        })
         loading.dismiss();
       });
     });
   }
 
   onInput(e) {
-    console.log(this.myInput)
+    
     this.listaFiltrada = this.listaOrig.filter((item) => {  
       return item.nome.toLowerCase().indexOf(this.myInput.toLowerCase()) > -1
         || item.docente.toLowerCase().indexOf(this.myInput.toLowerCase()) > -1;
     });
-    console.log(this.listaFiltrada);
   }
 
   pushPage(dados: Disciplina) {
