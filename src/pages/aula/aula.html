@@ -25,7 +25,7 @@
       <p *ngIf="dados.disciplina"><b>Disciplina:</b> {{ dadosDisciplina }}</p>
       <p *ngIf="dados.docente"><b>Docente:</b> {{ dados.docente }}</p>
       <p *ngIf="dados.palestrante"><b>Palestrante:</b> {{ dados.palestrante }}</p>
-      <b>Local: </b> {{ dados.local._lat }}, {{ dados.local._long }} <br>
+      <p *ngIf='dados.local'><b>Local: </b> {{ dados.local._lat }}, {{ dados.local._long }}</p>
       <b>Data: </b> {{ datastring }} <br>
       <b>Inicio: </b> {{ dados.hora_inicio }} <br>
       <p *ngIf="dados.hora_fim"><b>Término: </b> {{ dados.hora_fim }} </p>
