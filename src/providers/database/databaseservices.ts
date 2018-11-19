@@ -95,21 +95,17 @@ export class DBservices {
     })
   }
   
-  criaAula(disciplina: string, docente: string, hora_inicio: string, hora_fim: string, fim: Date, local: Geolocation, nome_local: string, dia_semana: string){
-    this.getIdDisciplina(disciplina);
-    this.IdDisciplina.subscribe(dado => {
-      dado.map(disciplinaId => {
-        firebase.firestore().doc(`/disciplinas/`).set({
-          disciplina: disciplinaId,
-          docente: docente,
-          hora_inicio: hora_inicio,
-          hora_fim: hora_fim,
-          fim: fim,
-          local: local,
-          nome_local: nome_local,
-        })  
-      })
-    }) 
+  criaAula(disciplina: string, docente: string, hora_inicio: string, hora_fim: string, fim: Date, local: firebase.firestore.GeoPoint, nome_local: string, dia_semana: string){
+    firebase.firestore().collection(`aula`).add({
+      disciplina: disciplina,
+      docente: docente,
+      hora_inicio: hora_inicio,
+      hora_fim: hora_fim,
+      fim: fim,
+      local: local,
+      nome_local: nome_local,
+      dia_semana: dia_semana,
+    })  
   }
 
   setAlunoEvento(userId: string, evento: string) {

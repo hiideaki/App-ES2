@@ -6,4 +6,5 @@ export class Aula {
     lat: number;
     long: number;
     local: string;
+    data: Date;
 }

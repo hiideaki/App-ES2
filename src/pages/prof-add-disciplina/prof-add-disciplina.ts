@@ -5,6 +5,7 @@ import { Disciplina } from '../../providers/database/disciplina';
 import { User } from '../../providers/auth/user';
 import { Aula } from '../../providers/database/aula';
 import { NgForm } from '@angular/forms';
+import * as firebase from 'firebase/app';
 
 /**
  * Generated class for the ProfAddDisciplinaPage page.
@@ -23,6 +24,8 @@ export class ProfAddDisciplinaPage {
   disciplina: Disciplina = new Disciplina();
   idDisciplina: string;
   aula: Aula = new Aula();
+  semana = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
+  diaSemana: number;
   aulas = [];
   local: any;
 
@@ -54,7 +57,7 @@ export class ProfAddDisciplinaPage {
 
 
     console.log(this.aula);
-    if(!this.aula.dia_semana || !this.aula.hora_inicio || !this.aula.hora_fim || !this.local) {
+    if(!this.diaSemana || !this.aula.hora_inicio || !this.aula.hora_fim || !this.local) {
       toast.setMessage("Preencha todos os campos");
       toast.present();
       return;
@@ -74,25 +77,34 @@ export class ProfAddDisciplinaPage {
     }
 
     for(var i = 0; i < this.aulas.length; i++) {
-      if(this.aula.dia_semana == this.aulas[i].dia_semana) {
+      if(this.semana[this.diaSemana] == this.aulas[i].dia_semana) {
         let tempIni = Number(this.aulas[i].hora_inicio.substring(0, this.aulas[i].hora_inicio.indexOf(':')));
         let tempFim = Number(this.aulas[i].hora_fim.substring(0, this.aulas[i].hora_fim.indexOf(':')));
-        if(ini <= tempFim && tempIni <= fim) {
+        if(ini < tempFim && tempIni < fim || ini == tempIni && fim == tempFim) {
           toast.setMessage("Há colisão de horários");
           toast.present();
           return;
         }
       }
     }
+
+    let hoje = new Date();
+    let diferenca = this.diaSemana - hoje.getDay();
+    if (diferenca < 0)
+      diferenca = 7 + diferenca;
+    let data = new Date(hoje.getFullYear(), hoje.getMonth(), hoje.getDate() + diferenca, fim, fimMin, 0, 0);
+
     
     this.aulas.push({
-      dia_semana: this.aula.dia_semana,
+      dia_semana: this.semana[this.diaSemana],
       local: this.local.nome_local,
       hora_inicio: this.aula.hora_inicio,
       hora_fim: this.aula.hora_fim,
       long: this.local.long,
-      lat: this.local.lat
+      lat: this.local.lat,
+      data: data
     });
+    console.log(this.disciplina);
   }
 
   remove(i) {
@@ -114,7 +126,10 @@ export class ProfAddDisciplinaPage {
       }
       toast.present();
     }
-    //this.dbServices.criaDisciplina(id, nome, docente); //olhe o db no para entender o "id"
+    this.dbServices.criaDisciplina(this.idDisciplina, this.disciplina.nome, this.user.nome); //olhe o db no para entender o "id"
+    for(var item of this.aulas) {
+      this.dbServices.criaAula(this.idDisciplina, this.user.nome, item.hora_inicio, item.hora_fim, item.data, new firebase.firestore.GeoPoint(item.lat, item.long), item.local, item.dia_semana)
+    }
   }
 
 }
