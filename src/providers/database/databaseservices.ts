@@ -135,7 +135,7 @@ export class DBservices {
     })
   }
 
-  addPresenca(userId: string, data: Date, disciplina: string) {
+  addPresencaAula(userId: string, data: Date, disciplina: string) {
     this.getIdAula(disciplina, data);
 
     this.IdAula.subscribe(dado => {
@@ -143,6 +143,18 @@ export class DBservices {
         firebase.firestore().doc(`aula/${aulaId}`).update({
           alunos_presentes: firebase.firestore.FieldValue.arrayUnion(userId)
         })
+      })
+    })
+  }
+
+  addPresencaEvento(userId: string, evento: string) {
+    this.getIdEvento(evento);
+
+    this.IdEvento.subscribe(dado => {
+      dado.map(eventoId => {
+        firebase.firestore().doc(`eventos/${eventoId}`).update({
+          alunos_presentes: firebase.firestore.FieldValue.arrayUnion(userId)
+        });
       })
     })
   }
