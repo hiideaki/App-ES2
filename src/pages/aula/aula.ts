@@ -78,14 +78,17 @@ export class AulaPage {
   }
 
   addPresenca(){
-<<<<<<< HEAD
     this.geolocation.getCurrentPosition().then((position) => {
       console.log(position.coords.latitude, position.coords.longitude, this.dados.local._lat, this.dados.local._long)
 
       let distancia = this.getDistanceFromLatLonInKm(position.coords.latitude, position.coords.longitude, this.dados.local._lat, this.dados.local._long);
       console.log(distancia);
       if(distancia <= 0.3) {
-        this.dbServices.addPresenca(firebase.auth().currentUser.uid, this.data, this.dados.disciplina);
+        if(this.dados.disciplina) {
+          this.dbServices.addPresencaAula(firebase.auth().currentUser.uid, this.data, this.dados.disciplina);
+        } else {
+          this.dbServices.addPresencaEvento(firebase.auth().currentUser.uid, this.dados.nome);
+        }
         console.log("Presença cadastrada");
       } else {
         console.log("Você está muito longe!");
@@ -109,12 +112,6 @@ export class AulaPage {
   
   deg2rad(deg) {
     return deg * (Math.PI/180)
-=======
-    if(this.dados.Disciplina)
-      this.dbServices.addPresencaAula(firebase.auth().currentUser.uid, this.data, this.dados.disciplina);
-    else
-      this.dbServices.addPresencaEvento(firebase.auth().currentUser.uid, this.dados.nome);
->>>>>>> 12cd74eb45226c55443dcf8fa5c645029013a879
   }
 
 }
