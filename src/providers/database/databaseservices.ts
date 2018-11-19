@@ -38,6 +38,10 @@ export class DBservices {
   getEventosTudo(): AngularFirestoreCollection <Evento> {
     return this.angularFirestore.collection(`eventos`);
   }
+  
+  getAulaDisciplina(disciplina: string) {
+    return this.angularFirestore.collection(`aula`, ref => ref.where("disciplina", "==", disciplina));
+  }
 
   getIdDisciplina(disciplina: string){
     this.DBRef = this.angularFirestore.collection(`disciplinas`, ref => ref.where ('nome', '==', disciplina));

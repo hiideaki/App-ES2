@@ -33,7 +33,13 @@ export class DisciplinasPage {
 
 
   ionViewDidLoad() {
-    this.lista = this.dbServices.getDisciplinasAluno(firebase.auth().currentUser.uid).valueChanges();
+    this.lista = this.dbServices.getDisciplinasAluno(firebase.auth().currentUser.uid).snapshotChanges().map(items => {
+      return items.map(a => {
+        const id = a.payload.doc.id;
+        const data = a.payload.doc.data() as Disciplina;
+        return {id, ...data};
+      })
+    });
     this.lista.subscribe((items : any[]) => {
       this.listaOrig = items;
     })

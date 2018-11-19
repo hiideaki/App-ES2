@@ -40,9 +40,9 @@ page-prof-add-disciplina {
             font-weight: bold;
         }
         
-        :last-of-type {
-            border: none !important;
-        }
+    }
+    .aulas:last-of-type {
+        border: none !important;
     }
 
 }

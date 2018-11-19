@@ -38,7 +38,13 @@ export class AddDisciplinasPage {
       content: 'Carregando'
     });
     loading.present().then(() => {
-      this.lista = this.dbServices.getListaTodasDisciplinas().valueChanges();
+      this.lista = this.dbServices.getListaTodasDisciplinas().snapshotChanges().map(items => {
+        return items.map(a => {
+          const id = a.payload.doc.id;
+          const data = a.payload.doc.data() as Disciplina;
+          return {id, ...data};
+        })
+      });
       this.myInput = '';
 
       this.lista.subscribe((items1 : any[]) => {

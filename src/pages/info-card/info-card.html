@@ -21,38 +21,18 @@
     <!--<p *ngIf="!novaDisc"><b>Frequência:</b> {{ dados.docente }}</p>-->
   </div>
 
-  <!--
-  <br><br>
-  <div *ngIf="dados">
-    <h4 style="font-weight: bold;">Aulas</h4>
-    <div class="aula">
-     <div class="dia-semana">
-        <p>Terça-feira</p>
-      </div>
-      <div class="hora">
-        <p>{{ dados.horaIni }}</p>
-        <p>{{ dados.horaFim }}</p>
-      </div>
-      <div class="local">
-        <p>{{ dados.local }}</p>
-      </div>
+  <h4 style="font-weight: bold;" *ngIf="!evento">Aulas</h4>
+  <div class="aulas" *ngFor="let item of listaOrig">
+    <div class="hora">
+      <p>{{ item.hora_inicio }}</p>
+      <p>{{ item.hora_fim }}</p>
     </div>
-
-    <div class="aula">
-     <div class="dia-semana">
-        <p>Quinta-feira</p>
-      </div>
-      <div class="hora">
-        <p>{{ dados.horaIni }}</p>
-        <p>{{ dados.horaFim }}</p>
-      </div>
-      <div class="local">
-        <p>{{ dados.local }}</p>
-      </div>
-    </div>
-
+    <div class="localData">
+      <p>{{ item.nome_local }}</p>
+      <p>{{ item.dia_semana }}</p>
+    </div>    
   </div>
-  -->
+
   <div class="button-group" *ngIf="novaDisc">
     <button class="botao" (click)="addDisciplina()">Adicionar disciplina</button>
   </div>

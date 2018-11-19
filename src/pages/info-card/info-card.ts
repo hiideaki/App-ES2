@@ -4,6 +4,7 @@ import { Disciplina } from './../../providers/database/disciplina';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController, ToastController } from 'ionic-angular';
 import * as firebase from 'firebase/app';
+import { Observable } from 'rxjs';
 
 /**
  * Generated class for the InfoCardPage page.
@@ -24,6 +25,8 @@ export class InfoCardPage {
   evento: boolean;
   userId: string;
   user: User;
+  lista: Observable<any[]>;
+  listaOrig = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private dbservices: DBservices, private loadingCtrl: LoadingController, private toastCtrl: ToastController) {
     this.dados = this.navParams.get('dados');
@@ -32,7 +35,12 @@ export class InfoCardPage {
   }
 
   ionViewDidLoad() {
-    
+    if(!this.evento) {
+      this.lista = this.dbservices.getAulaDisciplina(this.dados.id).valueChanges();
+      this.lista.subscribe(dados => {
+        this.listaOrig = dados;
+      })
+    }
   }
 
   addDisciplina(){

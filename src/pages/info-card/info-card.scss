@@ -1,26 +1,42 @@
 page-info-card {
-    .aula {
+    .aulas {
         width: 100%;
         position: relative;
         display: flex;
-        border-bottom: 1px solid #000;
-        font-size: 13px;
+        font-size: 15px;
+        padding: 10px 0;
+        border-bottom: 1px solid $primary;
     
-        .dia-semana {
-            width: 15%;
+        p {
+            margin: 5px 0 !important;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
         }
-
+        
         .hora {
             width: 15%;
         }
 
-        .local {
+        .localData {
             width: 70%;
         }
-    }
 
-    .aula:last-of-type {
-        border: none;
+        .icon {
+            width: 15%;
+            font-size: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .localData > p:first-of-type {
+            font-weight: bold;
+        }
+        
+    }
+    .aulas:last-of-type {
+        border: none !important;
     }
 
 }
