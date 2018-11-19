@@ -19,16 +19,21 @@
   </div>
 
   <div *ngIf="dados" padding>
-      <b>Disciplina: </b> {{ dados.disciplina }} <br>
-      <b>Professor: </b> {{ dados.professor }} Teste <br>
+      <!-- <b>Disciplina: </b> {{ dadosDisciplina || dados.nome}} <br>
+      <b>Professor: </b> {{ dados.docente || dados.palestrante}} <br> -->
+      <p *ngIf="dados.nome"><b>Palestra:</b> {{ dados.nome }}</p>
+      <p *ngIf="dados.disciplina"><b>Disciplina:</b> {{ dadosDisciplina }}</p>
+      <p *ngIf="dados.docente"><b>Docente:</b> {{ dados.docente }}</p>
+      <p *ngIf="dados.palestrante"><b>Palestrante:</b> {{ dados.palestrante }}</p>
       <b>Local: </b> {{ dados.materia }} Teste <br>
+      <b>Data: </b> {{ datastring }} <br>
       <b>Inicio: </b> {{ dados.hora_inicio }} <br>
-      <b>Término: </b> {{ dados.hora_fim }} <br>
+      <p *ngIf="dados.hora_fim"><b>Término: </b> {{ dados.hora_fim }} </p>
       <b>Frequência: </b> {{ dados.frequencia }} 000<br>
   </div>
 
   <div class="button-group">
-    <button type="button" class="botao">Cadastrar presença</button>
+    <button type="button" class="botao" (click)="addPresenca()">Cadastrar presença</button>
   </div>
   
 </ion-content>

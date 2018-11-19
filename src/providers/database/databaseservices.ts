@@ -12,11 +12,13 @@ import { Evento } from './evento';
 
 @Injectable()
 export class DBservices {
+  data = new Date();
   public DBRef: AngularFirestoreCollection<Disciplina>;
   public docRef: AngularFirestoreDocument;
   public IdDisciplina: Observable<string[]>;
   public IdEvento: Observable<string[]>;
   public NomeAluno: Observable<string>;
+  public IdAula: Observable<string[]>;
 
   constructor(public angularFirestore: AngularFirestore) {
   }
@@ -30,7 +32,7 @@ export class DBservices {
   }
 
   getAulas(userId: string): AngularFirestoreCollection<Aula>{
-    return this.angularFirestore.collection(`aula`, ref => ref.where('alunos', 'array-contains', userId));
+    return this.angularFirestore.collection(`aula`, ref => ref.where('alunos', 'array-contains', userId).where('fim', '>=', this.data));
   }
 
   getEventosTudo(): AngularFirestoreCollection <Evento> {
@@ -109,7 +111,7 @@ export class DBservices {
   }
 
   getEventosAluno(userId: string) {
-    return this.angularFirestore.collection(`eventos`, ref => ref.where('alunos', 'array-contains', userId));
+    return this.angularFirestore.collection(`eventos`, ref => ref.where('alunos', 'array-contains', userId).where('comeco', '>=', this.data));
   }
 
   getIdEvento(evento: string){
@@ -121,5 +123,27 @@ export class DBservices {
         return id;
       })
     });
+  }
+
+  getIdAula(disciplina: string, data: Date) { 
+    this.DBRef = this.angularFirestore.collection(`aula`, ref => ref.where('disciplina', '==', disciplina).where('fim', '==', data));
+    this.IdAula = this.DBRef.snapshotChanges().map(aula => {
+      return aula.map(a => {
+        const id = a.payload.doc.id;
+        return id;
+      })
+    })
+  }
+
+  addPresenca(userId: string, data: Date, disciplina: string) {
+    this.getIdAula(disciplina, data);
+
+    this.IdAula.subscribe(dado => {
+      dado.map(aulaId => {
+        firebase.firestore().doc(`aula/${aulaId}`).update({
+          alunos_presentes: firebase.firestore.FieldValue.arrayUnion(userId)
+        })
+      })
+    })
   }
 }

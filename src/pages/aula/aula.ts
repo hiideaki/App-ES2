@@ -1,6 +1,9 @@
+import { DBservices } from './../../providers/database/databaseservices';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
+import * as firebase from 'firebase/app';
 
 declare var google;
 
@@ -21,8 +24,11 @@ export class AulaPage {
   @ViewChild('mapa') elementoMapa: ElementRef;
   mapa: any;
   dados: any;
+  dadosDisciplina: any;
+  data = new Date();
+  datastring: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public geolocation: Geolocation) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public geolocation: Geolocation, private angularFirestore: AngularFirestore, private dbServices: DBservices) {
   }
 
 
@@ -30,9 +36,21 @@ export class AulaPage {
     console.log(this.navParams.data)
     this.dados = this.navParams.data;
     this.loadMap();
+    if (this.dados.disciplina){
+      this.data.setTime(this.dados.fim.seconds * 1000);
+      this.angularFirestore.doc(`disciplinas/${this.dados.disciplina}`).ref.get().then(data => {
+        this.dadosDisciplina = data.data().nome;
+      })
+    }
+    else {
+      this.data.setTime(this.dados.comeco.seconds * 1000);
+    }
+    this.datastring = this.data.getDate() + '/' + (this.data.getMonth() + 1) + '/' + this.data.getFullYear();
   }
  
   loadMap(){
+    // Para pegar as coordenadas do local use
+    // this.dados.local._lat e this.dados.local._long
     this.geolocation.getCurrentPosition().then((position) => {
 
       let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
@@ -47,6 +65,10 @@ export class AulaPage {
     }, (err) => {
       console.log(err);
     });
+  }
+
+  addPresenca(){
+    this.dbServices.addPresenca(firebase.auth().currentUser.uid, this.data, this.dados.disciplina);
   }
 
 }

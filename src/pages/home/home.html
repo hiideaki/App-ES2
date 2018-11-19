@@ -26,12 +26,14 @@
         <p>{{ item.hora_fim }}</p>
       </div>
       <div class="materia">
-        <p>{{ item.disciplina }}</p>
-        <p>{{ item.professor }} Teste</p>
+        <p *ngIf="item.nome">{{ item.nome }}</p>
+        <p *ngIf="item.palestrante">{{ item.palestrante }}</p>
+        <p *ngIf="item.disciplina">{{ item.disciplina }}</p>
+        <p *ngIf="item.docente">{{ item.docente }} Teste</p>
       </div>
-      <div class="frequencia">
+      <!-- <div class="frequencia">
         <p>{{ item.frequencia }} 70.0%</p>
-      </div>
+      </div> -->
     </div>
 
     <div class="vazio" *ngIf="listaOrig.length == 0">
