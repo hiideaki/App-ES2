@@ -2,9 +2,10 @@ import { Disciplina } from './../../providers/database/disciplina';
 import { DBservices } from './../../providers/database/databaseservices';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, ToastController, Platform } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 import * as firebase from 'firebase/app';
+import { AndroidPermissions } from '@ionic-native/android-permissions';
 
 declare var google;
 
@@ -29,15 +30,20 @@ export class AulaPage {
   dadosDisciplina: any;
   data = new Date();
   datastring: string;
+  local: any;
 
   constructor(public navCtrl: NavController,
      public navParams: NavParams,
      public geolocation: Geolocation,
      private angularFirestore: AngularFirestore,
      private dbServices: DBservices,
+     private androidPermissions: AndroidPermissions,
+     private platform: Platform,
      private loadingCtrl: LoadingController,
      private toastCtrl: ToastController) {
-  }
+
+
+     }
 
 
   ionViewDidLoad(){
@@ -45,6 +51,18 @@ export class AulaPage {
       duration: 3000,
       position: 'bottom'
     })
+
+    if(this.platform.is('cordova')) {
+      // Verifica se o app possui permissão para usar geolocalização
+      this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.ACCESS_FINE_LOCATION).then((result) => {
+        this.local = result.hasPermission;
+        if(!this.local) {
+          toast.setMessage("O aplicativo não pode cadastrar sua presença pois não possui permissões de localização!");  
+          toast.present();
+        }
+      })
+    }
+
     this.dados = this.navParams.data;
     this.loadMap();
     if (this.dados.disciplina){
@@ -86,10 +104,14 @@ export class AulaPage {
       duration: 3000,
       position: 'bottom'
     })
+    
     let loading = this.loadingCtrl.create({
       spinner: 'crescent',
       content: 'Carregando'
     })
+
+  
+
     loading.present();
 
     let auxData = new Date();
@@ -108,12 +130,15 @@ export class AulaPage {
       return
     }
 
-    this.geolocation.getCurrentPosition().then((position) => {
-      console.log(position.coords.latitude, position.coords.longitude, this.dados.local._lat, this.dados.local._long)
 
+    this.cadastrarPresenca(toast, loading)
+  }
+
+  cadastrarPresenca(toast, loading) {
+    this.geolocation.getCurrentPosition().then((position) => {
       let distancia = this.getDistanceFromLatLonInKm(position.coords.latitude, position.coords.longitude, this.dados.local._lat, this.dados.local._long);
-      console.log(distancia);
-      if(distancia <= 0.3) {
+
+      if(distancia <= 0.1) {
         if(this.dados.disciplina) {
           this.dbServices.addPresencaAula(firebase.auth().currentUser.uid, this.data, this.dados.disciplina);
         } else {
@@ -126,6 +151,8 @@ export class AulaPage {
       loading.dismiss();
       toast.present();
     })
+    .catch((err) => alert(err.message))
+
   }
 
   getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {

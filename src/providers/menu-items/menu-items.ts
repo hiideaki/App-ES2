@@ -8,8 +8,11 @@ import { ProfAddDisciplinaPage } from '../../pages/prof-add-disciplina/prof-add-
 export class MenuItemsProvider {
 
   public pages: Array<{title: string, component: any}>;
+  public ocupacao: string;
+  public nome: string;
 
   setPages(ocupacao) {
+    this.ocupacao = ocupacao;
     if(ocupacao == 'aluno') {
       this.pages = [
         { title: 'Home', component: HomePage },
@@ -23,6 +26,10 @@ export class MenuItemsProvider {
         { title: 'Eventos', component: EventosPage },
       ];
     }
+  }
+
+  setUserInfo(nome) {
+    this.nome = nome;
   }
 
 }

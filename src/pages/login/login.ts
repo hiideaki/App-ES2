@@ -85,7 +85,8 @@ export class LoginPage {
         toast.present();
       });
     } else {
-      console.log("Preencha todos os campos");
+      toast.setMessage("Preencha todos os campos");
+      toast.present();
     }
   }
 

@@ -33,16 +33,19 @@ $app-direction: ltr;
 // colors so you can add, rename and remove colors as needed.
 // The "primary" color is the only required color in the map.
 
+// $primary:   #05004C;
+// $secondary: #332C94;
+
+$primary:   #69DAD2;
+$secondary: #64BAD0;
+
+
+
+$bgGradient: linear-gradient(to bottom, $primary, $secondary);
+
 $colors: (
-  primary:    #08007F
+  primary:    $primary
 );
-
-
-$primary:   #08007F;
-$secondary: #0d00cb;
-
-$bgGradient: linear-gradient(to bottom, #08007f, #0d00cb);
-
 
 // App iOS Variables
 // --------------------------------------------------

@@ -61,6 +61,9 @@ export class RecuperarSenhaPage {
         }
         toast.present();
       });
+    } else {
+      toast.setMessage("Preencha todos os campos");
+      toast.present();
     }
   }
 

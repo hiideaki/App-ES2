@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
+import { Nav, Platform, LoadingController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -13,6 +13,8 @@ import { User } from '../providers/auth/user';
 import { DBservices } from '../providers/database/databaseservices';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { MenuItemsProvider } from '../providers/menu-items/menu-items';
+import { AndroidPermissions } from '@ionic-native/android-permissions';
+import { ScreenOrientation } from '@ionic-native/screen-orientation';
 
 @Component({
   templateUrl: 'app.html'
@@ -28,8 +30,17 @@ export class MyApp {
      private authProvider: AuthProvider, 
      private afAuth: AngularFireAuth, 
      public user: User,
-     public pages: MenuItemsProvider) {
-       
+     public pages: MenuItemsProvider,
+     private loadingCtrl: LoadingController,
+     private androidPermissions: AndroidPermissions,
+     private screenOrientation: ScreenOrientation) {
+    
+    let loading = this.loadingCtrl.create({
+      spinner: 'crescent',
+      content: 'Carregando'
+    });
+
+    loading.present();
     const authObserver = afAuth.authState.subscribe((user) => {
       if(user) {
         this.rootPage = HomePage;
@@ -37,6 +48,7 @@ export class MyApp {
         this.rootPage = LoginPage;
       }
       authObserver.unsubscribe();
+      loading.dismiss();
     })
    
     this.initializeApp();
@@ -46,16 +58,24 @@ export class MyApp {
 
   initializeApp() {
     this.platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
+      if(this.platform.is('cordova')) {
+        // Trava orientação do dispositivo para ficar em modo 'retrato'
+        this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
+
+        // Checa e, se necessário, requisita permissão para usar localização do dispositivo
+        this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.ACCESS_FINE_LOCATION).then((result) => {
+          if(!result.hasPermission) {
+            this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.ACCESS_FINE_LOCATION)
+          }
+        })
+      }
+
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
   }
 
   openPage(page) {
-    // Reset the content nav to have just this page
-    // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component);
   }
 

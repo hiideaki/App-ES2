@@ -36,11 +36,16 @@ export class CadastrarPage {
       position: 'bottom'
     });
     if(this.form.form.valid) {
-      console.log('ok')
+      if(this.user.password != this.confirmPw) {
+        toast.setMessage("As senhas estão diferentes!");
+        toast.present();
+        return;
+      }
       loading.present();
       this.authProvider.createUser(this.user)
         .then((user: any) => {
-          console.log("Usuário criado com sucesso");
+          toast.setMessage("Usuário criado com sucesso!");
+          toast.present();
           loading.dismiss();
           this.navCtrl.setRoot(HomePage);
         })
@@ -62,7 +67,8 @@ export class CadastrarPage {
           toast.present();
         })
     } else {
-      console.log('erro');
+      toast.setMessage("Preencha todos os campos");
+      toast.present();
     }
   }
 

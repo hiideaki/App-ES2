@@ -35,6 +35,9 @@ import { ProfAddDisciplinaPage } from '../pages/prof-add-disciplina/prof-add-dis
 import { User } from '../providers/auth/user';
 import { MenuItemsProvider } from '../providers/menu-items/menu-items';
 
+import { AndroidPermissions } from '@ionic-native/android-permissions';
+import { ScreenOrientation } from '@ionic-native/screen-orientation';
+
 var firebaseConfig = {
   apiKey: "AIzaSyCMM3RGIGCkGl9GhJn_Y4GFhY__3zjDd80",
   authDomain: "unesp-esii-1540422166847.firebaseapp.com",
@@ -54,13 +57,13 @@ var firebaseConfig = {
     RecuperarSenhaPage,
     AulaPage,
     DisciplinasPage,
-    //AddDisciplinasPage,
-    //InfoCardPage,
+    // AddDisciplinasPage,
+    // InfoCardPage,
     EventosPage,
     SettingsPage,
     ProfAddDisciplinaPage,
 
-    CompromissoComponent,
+    // CompromissoComponent,
   ],
   imports: [
     BrowserModule,
@@ -81,8 +84,6 @@ var firebaseConfig = {
     RecuperarSenhaPage,
     AulaPage,
     DisciplinasPage,
-    AddDisciplinasPage,
-    InfoCardPage,
     EventosPage,
     SettingsPage,
     ProfAddDisciplinaPage,
@@ -97,6 +98,8 @@ var firebaseConfig = {
     AngularFireDatabase,
     User,
     MenuItemsProvider,
+    AndroidPermissions,
+    ScreenOrientation,
   ]
 })
 

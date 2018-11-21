@@ -1,5 +1,5 @@
 import { Component, NgModule } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, Loading, LoadingController } from 'ionic-angular';
 import { CompromissoComponent } from '../../components/compromisso/compromisso';
 import * as firebase from 'firebase/app';
 import { MenuItemsProvider } from '../../providers/menu-items/menu-items';
@@ -39,13 +39,16 @@ export class HomePage {
     public pages: MenuItemsProvider, 
     public user: User,
     private dbServices: DBservices,
-    private angularFirestore: AngularFirestore) {
+    private angularFirestore: AngularFirestore,
+    private loadingCtrl: LoadingController) {
 
     this.angularFirestore.doc(`users/${firebase.auth().currentUser.uid}`).ref.get().then(dado => {
       this.user.cpf = dado.data().cpf;
       this.user.ocupacao = dado.data().ocupacao;
       this.user.nome = dado.data().nome;
       this.pages.setPages(this.user.ocupacao);
+      console.log(user.nome)
+      this.pages.setUserInfo(user.nome)
     });
 
     console.log(firebase.auth().currentUser.email);
@@ -57,6 +60,11 @@ export class HomePage {
   }
 
   ionViewDidLoad(){
+    let loading = this.loadingCtrl.create({
+      spinner: 'crescent',
+      content: 'Carregando'
+    })
+    loading.present();
     this.auxData
     let hoje = this.dia + '/' + this.auxData.getMonth() + '/' + this.auxData.getFullYear();
 
@@ -100,6 +108,7 @@ export class HomePage {
             item.presencaOk = null;
           }
         }
+        loading.dismiss();
       })
     })
   }

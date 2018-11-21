@@ -40,13 +40,20 @@ ion-menu ion-content{
 
 .profile-picture {
     border-radius: 50%;
-    margin: 50px 0;
+    margin: 50px 0 20px 0;
     margin-left: 50%;
     transform: translateX(-50%);
 }
 
+.user {
+    display: block;
+    width: 100%;
+    text-align: center;
+
+}
+
 .superior {
-    margin-top: 65%;
+    margin-top: 50px;
 }
 
 .options-menu {
