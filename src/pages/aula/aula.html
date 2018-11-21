@@ -25,7 +25,7 @@
       <!-- <b>Disciplina: </b> {{ dadosDisciplina || dados.nome}} <br>
       <b>Professor: </b> {{ dados.docente || dados.palestrante}} <br> -->
       <p *ngIf="dados.nome"><b>Palestra:</b> {{ dados.nome }}</p>
-      <p *ngIf="dados.disciplina"><b>Disciplina:</b> {{ dados.disciplina }}</p>
+      <p *ngIf="dados.disciplina"><b>Disciplina:</b> {{ dadosDisciplina }}</p>
       <p *ngIf="dados.docente"><b>Docente:</b> {{ dados.docente }}</p>
       <p *ngIf="dados.palestrante"><b>Palestrante:</b> {{ dados.palestrante }}</p>
       <p *ngIf="dados.local"><b>Local: </b> {{ dados.nome_local }}</p>
