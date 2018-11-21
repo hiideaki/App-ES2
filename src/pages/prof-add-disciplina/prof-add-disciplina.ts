@@ -121,6 +121,11 @@ export class ProfAddDisciplinaPage {
       position: 'bottom'
     })
     if(this.form.form.valid && this.aulas.length > 0) {
+      
+      this.dbServices.criaDisciplina(this.idDisciplina, this.disciplina.nome, this.user.nome); //olhe o db no para entender o "id"
+      for(var item of this.aulas) {
+        this.dbServices.criaAula(this.idDisciplina, this.user.nome, item.hora_inicio, item.hora_fim, item.data, new firebase.firestore.GeoPoint(item.lat, item.long), item.local, item.dia_semana)
+      }
       toast.setMessage("Disciplina criada com sucesso!");
       toast.present();
       this.navCtrl.setRoot(HomePage)
@@ -131,10 +136,6 @@ export class ProfAddDisciplinaPage {
         toast.setMessage('Preencha todos os campos')
       }
       toast.present();
-    }
-    this.dbServices.criaDisciplina(this.idDisciplina, this.disciplina.nome, this.user.nome); //olhe o db no para entender o "id"
-    for(var item of this.aulas) {
-      this.dbServices.criaAula(this.idDisciplina, this.user.nome, item.hora_inicio, item.hora_fim, item.data, new firebase.firestore.GeoPoint(item.lat, item.long), item.local, item.dia_semana)
     }
   }
 
