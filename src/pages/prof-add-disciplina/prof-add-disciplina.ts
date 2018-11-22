@@ -61,7 +61,6 @@ export class ProfAddDisciplinaPage {
     })
 
 
-    console.log(this.aula);
     if(!this.diaSemana || !this.aula.hora_inicio || !this.aula.hora_fim || !this.local) {
       toast.setMessage("Preencha todos os campos");
       toast.present();
@@ -73,8 +72,7 @@ export class ProfAddDisciplinaPage {
     let iniMin = Number(this.aula.hora_inicio.substring(this.aula.hora_inicio.indexOf(':') + 1, this.aula.hora_inicio.length));
     let fim = Number(this.aula.hora_fim.substring(0, this.aula.hora_fim.indexOf(':')));
     let fimMin = Number(this.aula.hora_fim.substring(this.aula.hora_fim.indexOf(':') + 1, this.aula.hora_fim.length));
-    console.log(iniMin)
-    console.log(fimMin)
+
     if(ini > fim || (ini == fim && iniMin > fimMin)) {
       toast.setMessage("O horário escolhido não é válido");
       toast.present();

@@ -31,8 +31,9 @@
         <p *ngIf="item.disciplina">{{ item.disciplina }}</p>
         <p *ngIf="item.docente">{{ item.docente }}</p>
       </div>
-      <div class="frequencia" *ngIf="item.presencaOk">
-       <ion-icon name="checkmark-circle-outline"></ion-icon>
+      <div class="frequencia" *ngIf="item.presencaOk || item.finalizado">
+        <ion-icon name="checkmark-circle" *ngIf="item.presencaOk"></ion-icon>
+        <ion-icon name="close-circle" *ngIf="item.finalizado && !item.presencaOk"></ion-icon>
       </div>
     </div>
 

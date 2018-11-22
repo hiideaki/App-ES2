@@ -61,6 +61,8 @@ export class AulaPage {
           toast.present();
         }
       })
+    } else {
+      this.local = true;
     }
 
     this.dados = this.navParams.data;
@@ -83,6 +85,9 @@ export class AulaPage {
     if(this.dados.presencaOk) {
       toast.setMessage("Sua presença já foi computada");
       toast.present();
+    } else if(this.dados.finalizado) {
+      toast.setMessage("A aula ou evento já foi finalizada");
+      toast.present();
     }
   }
  
@@ -95,6 +100,7 @@ export class AulaPage {
       zoom: 13,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     }
+
 
     this.mapa = new google.maps.Map(this.elementoMapa.nativeElement, mapOptions);
 

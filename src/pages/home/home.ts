@@ -83,7 +83,6 @@ export class HomePage {
       this.lista.subscribe((items: any) => {
         this.listaOrig2 = [];
         items.forEach(item => {
-          console.log(new Date(item.comeco.seconds * 1000))
           let evento = new Date(item.comeco.seconds * 1000)
           let dataEvento = evento.getDate() + '/' + evento.getMonth() +  '/' + evento.getFullYear()
           // Verifica se o evento ocorre neste dia
@@ -93,6 +92,8 @@ export class HomePage {
         // Ordena os compromissos de acordo com a hora inicial
         this.listaOrig = this.listaOrig1.concat(this.listaOrig2).sort((a, b) => Number(a.hora_inicio.substring(0, a.hora_inicio.indexOf(':'))) < Number(b.hora_inicio.substring(0, b.hora_inicio.indexOf(':'))) ? -1 : Number(a.hora_inicio.substring(0, a.hora_inicio.indexOf(':'))) > Number(b.hora_inicio.substring(0, b.hora_inicio.indexOf(':'))) ? 1 : 0)
         
+        let horaAgora = this.auxData.getHours() 
+        let minutoAgora = this.auxData.getMinutes();
         // Verifica se o aluno já cadastrou presença na aula ou evento
         for(let item of this.listaOrig) {
           if(item.alunos_presentes) {
@@ -110,7 +111,19 @@ export class HomePage {
           } else {
             item.presencaOk = null;
           }
+
+          let horaFim = Number(item.hora_fim.substring(0, item.hora_fim.indexOf(':')))
+          let minutoFim = Number(item.hora_fim.substring(item.hora_fim.indexOf(':') + 1, item.hora_fim.length))
+
+          if(horaAgora > horaFim || (horaAgora == horaFim && minutoAgora > minutoFim)) {
+            item.finalizado = true;
+          } else {
+            item.finalizado = null;
+          }
+
+
         }
+        
         loading.dismiss();
       })
     })

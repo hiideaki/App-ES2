@@ -35,7 +35,7 @@
   </div>
 
   <div class="button-group" *ngIf="dados">
-    <button type="button" class="botao" (click)="addPresenca()" [disabled]="dados.presencaOk || !local">Cadastrar presença</button>
+    <button type="button" class="botao" (click)="addPresenca()" [disabled]="dados.presencaOk || !local || dados.finalizado">Cadastrar presença</button>
   </div>
   
 </ion-content>
