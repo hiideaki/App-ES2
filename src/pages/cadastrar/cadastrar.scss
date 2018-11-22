@@ -1,3 +1,11 @@
 page-cadastrar {
 
+    ion-content > * {
+        background-image: linear-gradient(to top, $tertiary, #fff);
+        // background: $tertiary;
+    }
+
+    input, .botao {
+        background: transparent;
+    }
 }

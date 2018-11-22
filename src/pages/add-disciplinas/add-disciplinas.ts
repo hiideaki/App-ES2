@@ -38,6 +38,7 @@ export class AddDisciplinasPage {
       content: 'Carregando'
     });
     loading.present().then(() => {
+      // "Pega" todas as as disciplinas
       this.lista = this.dbServices.getListaTodasDisciplinas().snapshotChanges().map(items => {
         return items.map(a => {
           const id = a.payload.doc.id;
@@ -47,6 +48,8 @@ export class AddDisciplinasPage {
       });
       this.myInput = '';
 
+      // Filtra as disciplinas para que apenas as que o aluno não está matriculado apareçam
+      // Verifica a interseção de todas as disciplinas com as disciplinas em que o aluno está matriculado e ve o que ficou de fora
       this.lista.subscribe((items1 : any[]) => {
         this.lista = this.dbServices.getDisciplinasAluno(firebase.auth().currentUser.uid).valueChanges();
         this.lista.subscribe((items2 : any[]) => {
@@ -72,7 +75,7 @@ export class AddDisciplinasPage {
   }
 
   onInput(e) {
-    
+    // Filtra a lista de acordo com o input do usuário
     this.listaFiltrada = this.listaOrig.filter((item) => {  
       return item.nome.toLowerCase().indexOf(this.myInput.toLowerCase()) > -1
         || item.docente.toLowerCase().indexOf(this.myInput.toLowerCase()) > -1;

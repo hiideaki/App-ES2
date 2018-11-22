@@ -64,7 +64,11 @@ export class AulaPage {
     }
 
     this.dados = this.navParams.data;
+
+    // Carrega o mapa
     this.loadMap();
+
+    // Monta a data
     if (this.dados.disciplina){
       this.data.setTime(this.dados.fim.seconds * 1000);
       this.angularFirestore.doc(`disciplinas/${this.dados.disciplina}`).ref.get().then(data => {
@@ -75,6 +79,7 @@ export class AulaPage {
     }
     this.datastring = this.data.getDate() + '/' + (this.data.getMonth() + 1) + '/' + this.data.getFullYear();
     
+    // Se o usuário já cadastrou presença nessa aula, exibe uma mensagem
     if(this.dados.presencaOk) {
       toast.setMessage("Sua presença já foi computada");
       toast.present();
@@ -82,6 +87,7 @@ export class AulaPage {
   }
  
   loadMap(){
+    // Gera mapa com coordenadas do local da aula
     let latLng = new google.maps.LatLng(this.dados.local._lat, this.dados.local._long);
 
     let mapOptions = {
@@ -92,6 +98,7 @@ export class AulaPage {
 
     this.mapa = new google.maps.Map(this.elementoMapa.nativeElement, mapOptions);
 
+    // Coloca um "marker" no mapa
     this.alvo = new google.maps.Marker({
       position: {lat: this.dados.local._lat, lng: this.dados.local._long},
       map: this.mapa,
@@ -122,7 +129,7 @@ export class AulaPage {
     let iniMin = Number(this.dados.hora_inicio.substring(this.dados.hora_inicio.indexOf(':') + 1, this.dados.hora_inicio.length));
     let fimMin = Number(this.dados.hora_fim.substring(this.dados.hora_fim.indexOf(':') + 1, this.dados.hora_fim.length));
 
-    console.log(ini, fim, agoraHora)
+    // Verifica se está dentro do perído de aula/palestra
     if(agoraHora < ini || agoraHora > fim || (agoraHora == ini && agoraMin < iniMin) || (agoraHora == fim && agoraMin > fimMin)) {
       loading.dismiss();
       toast.setMessage('Fora do período');
@@ -130,14 +137,17 @@ export class AulaPage {
       return
     }
 
-
     this.cadastrarPresenca(toast, loading)
   }
 
   cadastrarPresenca(toast, loading) {
+    // Pega a localização do usuário
     this.geolocation.getCurrentPosition().then((position) => {
+      // Calcula a distância (km)
       let distancia = this.getDistanceFromLatLonInKm(position.coords.latitude, position.coords.longitude, this.dados.local._lat, this.dados.local._long);
 
+      // Se a distância for menor que 100m, permite o cadastro da presença
+      // Senão, alerta o usuário e não cadastra a presença
       if(distancia <= 0.1) {
         if(this.dados.disciplina) {
           this.dbServices.addPresencaAula(firebase.auth().currentUser.uid, this.data, this.dados.disciplina);

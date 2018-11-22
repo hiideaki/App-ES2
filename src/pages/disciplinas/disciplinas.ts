@@ -33,6 +33,7 @@ export class DisciplinasPage {
 
 
   ionViewDidLoad() {
+    // Pega as disciplinas em que o usuário está matriculado
     this.lista = this.dbServices.getDisciplinasAluno(firebase.auth().currentUser.uid).snapshotChanges().map(items => {
       return items.map(a => {
         const id = a.payload.doc.id;

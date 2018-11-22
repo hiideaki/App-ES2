@@ -35,6 +35,7 @@ export class EventosPage {
       content: 'Carregando'
     });
     loading.present().then(() => {
+      // Pega todos os eventos
       this.lista = this.dbServices.getEventosTudo().valueChanges();    
       this.myInput = '';
   
@@ -47,6 +48,7 @@ export class EventosPage {
   }
 
   onInput(e) {
+    // Filtra os eventos de acordo com a entrada do usuário
     this.listaFiltrada = this.listaOrig.filter((item) => {  
       return item.nome.toLowerCase().indexOf(this.myInput.toLowerCase()) > -1
         || item.palestrante.toLowerCase().indexOf(this.myInput.toLowerCase()) > -1;

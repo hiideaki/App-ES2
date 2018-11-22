@@ -43,15 +43,13 @@ export class HomePage {
     private loadingCtrl: LoadingController) {
 
     this.angularFirestore.doc(`users/${firebase.auth().currentUser.uid}`).ref.get().then(dado => {
+      // Pega as informações do usuário que está logado
       this.user.cpf = dado.data().cpf;
       this.user.ocupacao = dado.data().ocupacao;
       this.user.nome = dado.data().nome;
       this.pages.setPages(this.user.ocupacao);
-      console.log(user.nome)
       this.pages.setUserInfo(user.nome)
     });
-
-    console.log(firebase.auth().currentUser.email);
 
   }
 
@@ -65,18 +63,22 @@ export class HomePage {
       content: 'Carregando'
     })
     loading.present();
+    // Pega a data de hoje
     this.auxData
     let hoje = this.dia + '/' + this.auxData.getMonth() + '/' + this.auxData.getFullYear();
 
+    // Pega as aulas que o usuário tem que comparecer
     this.lista = this.dbServices.getAulas(firebase.auth().currentUser.uid).valueChanges();
     this.lista.subscribe((items: any) => {
       this.listaOrig1 = [];
+      // Verifica se a aula ocorre neste dia da semana
       for(var i = 0; i < items.length; i++) {
         if(items[i].dia_semana == this.diaSemana) {
           this.listaOrig1.push(items[i])
         }
       }
-      // this.listaOrig = items;
+
+      // Pega todos os eventos em que o usuário se inscreveu
       this.lista = this.dbServices.getEventosAluno(firebase.auth().currentUser.uid).valueChanges();
       this.lista.subscribe((items: any) => {
         this.listaOrig2 = [];
@@ -84,17 +86,18 @@ export class HomePage {
           console.log(new Date(item.comeco.seconds * 1000))
           let evento = new Date(item.comeco.seconds * 1000)
           let dataEvento = evento.getDate() + '/' + evento.getMonth() +  '/' + evento.getFullYear()
+          // Verifica se o evento ocorre neste dia
           if(dataEvento == hoje)
             this.listaOrig2.push(item);
         })
+        // Ordena os compromissos de acordo com a hora inicial
         this.listaOrig = this.listaOrig1.concat(this.listaOrig2).sort((a, b) => Number(a.hora_inicio.substring(0, a.hora_inicio.indexOf(':'))) < Number(b.hora_inicio.substring(0, b.hora_inicio.indexOf(':'))) ? -1 : Number(a.hora_inicio.substring(0, a.hora_inicio.indexOf(':'))) > Number(b.hora_inicio.substring(0, b.hora_inicio.indexOf(':'))) ? 1 : 0)
+        
+        // Verifica se o aluno já cadastrou presença na aula ou evento
         for(let item of this.listaOrig) {
-          console.log(item)
           if(item.alunos_presentes) {
-            console.log('entrou')
             let ja = false;
             for(let cod of item.alunos_presentes) {
-              console.log(cod, firebase.auth().currentUser.uid)
               if(cod == firebase.auth().currentUser.uid) {
                 ja = true;
                 item.presencaOk = true;
